@@ -1,5 +1,7 @@
 import React from 'react';
 
+import styles from './styles.module.css';
+
 import Editor from '@monaco-editor/react';
 
 function CodeEditor() {
@@ -34,6 +36,7 @@ function CodeEditor() {
       onChange={handleEditorChange}
       theme="customTheme"
       beforeMount={handleEditorWillMount}
+      className={styles.editorStyle}
     />
   );
 }

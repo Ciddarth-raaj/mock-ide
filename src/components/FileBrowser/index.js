@@ -1,13 +1,18 @@
 import React from 'react';
 
 import styles from './styles.module.css';
+
 import FileItem from './FileItem/FileItem';
 
 function FileBrowser() {
   return (
     <div className={styles.mainContainer}>
+      <p className={`secondaryHeading ${styles.sectionHeading}`}>FILE BROWSER</p>
       <FileItem fileName="FileBrowser.js" />
-      <FileItem fileName="styles.module.css" isSelected={true} />
+      <FileItem fileName="styles.module.css" />
+      <FileItem fileName="test.js" isSelected={true} />
+      <FileItem fileName="config.json" />
+      <FileItem fileName="index.js" />
     </div>
   );
 }

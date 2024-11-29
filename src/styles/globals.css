@@ -4,6 +4,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Roboto';
 }
 
 html,
@@ -16,4 +17,10 @@ body {
   --secondary: #53389e;
   --secondaryDark: #311a70;
   --background: #0b0718;
+}
+
+.secondaryHeading {
+  font-size: 14px;
+  color: white;
+  opacity: 0.7;
 }
