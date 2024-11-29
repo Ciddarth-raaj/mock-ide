@@ -1,0 +1,19 @@
+.fileItemContainer {
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.fileNameStyle {
+  padding: 4px 10px;
+  font-size: 16px;
+}
+
+.fileNameStyle:hover {
+  background-color: var(--secondaryDark);
+  cursor: pointer;
+}
+
+.fileNameStyle.selected {
+  background-color: var(--secondary);
+}

@@ -10,3 +10,10 @@ html,
 body {
   height: 100%;
 }
+
+:root {
+  --primary: #2b253e;
+  --secondary: #53389e;
+  --secondaryDark: #311a70;
+  --background: #0b0718;
+}
