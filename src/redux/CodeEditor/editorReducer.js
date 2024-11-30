@@ -1,4 +1,4 @@
-import { SELECT_FILE } from './actionTypes';
+import { MODIFY_CONTENT, SELECT_FILE } from './actionTypes';
 
 const initialState = {
   editorContent: '',
@@ -12,6 +12,11 @@ export default (state = initialState, action) => {
         ...state,
         editorContent: action.payload.editorContent,
         selectedFile: action.payload.selectedFile
+      };
+    case MODIFY_CONTENT:
+      return {
+        ...state,
+        editorContent: action.payload.editorContent
       };
     default:
       return state;
