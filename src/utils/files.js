@@ -1,3 +1,5 @@
+import OpenWorksheets from '../api/open-worksheets.json';
+
 export const getFileType = (fileName) => {
   const splitted = fileName.split('.');
 
@@ -34,4 +36,51 @@ export const buildTree = (data) => {
     });
   });
   return root.children;
+};
+
+export const getFileContent = (selectedFile) => {
+  const selectedWorksheet = OpenWorksheets.activeWorksheets.find(
+    (item) => item.relativePath === selectedFile
+  );
+
+  if (selectedWorksheet) {
+    return selectedWorksheet.editorContent;
+  }
+
+  return '';
+};
+
+export const getLanguageFromFilename = (filename) => {
+  const extension = getFileType(filename);
+
+  // Map of file extensions to Monaco languages
+  const extensionToLanguageMap = {
+    js: 'javascript',
+    ts: 'typescript',
+    jsx: 'javascript',
+    tsx: 'typescript',
+    py: 'python',
+    java: 'java',
+    cpp: 'cpp',
+    c: 'c',
+    cs: 'csharp',
+    html: 'html',
+    css: 'css',
+    scss: 'scss',
+    php: 'php',
+    json: 'json',
+    xml: 'xml',
+    md: 'markdown',
+    yaml: 'yaml',
+    yml: 'yaml',
+    sql: 'sql',
+    go: 'go',
+    swift: 'swift',
+    rb: 'ruby',
+    kt: 'kotlin',
+    sh: 'shell',
+    txt: 'plaintext'
+  };
+
+  return extensionToLanguageMap[extension] || 'plaintext';
 };

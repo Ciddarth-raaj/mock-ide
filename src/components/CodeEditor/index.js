@@ -8,6 +8,7 @@ import { modifyEditorContent } from '../../redux/CodeEditor/editorActions';
 
 function CodeEditor() {
   const editorContent = useSelector((state) => state.editorContent);
+  const editorLanguage = useSelector((state) => state.editorLanguage);
   const dispatch = useDispatch();
 
   function handleEditorChange(value) {
@@ -36,7 +37,7 @@ function CodeEditor() {
   return (
     <Editor
       height="100vh"
-      defaultLanguage="javascript"
+      language={editorLanguage}
       defaultValue="// some comment"
       value={editorContent}
       onChange={handleEditorChange}
