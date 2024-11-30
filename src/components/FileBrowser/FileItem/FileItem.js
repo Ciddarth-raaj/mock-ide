@@ -7,12 +7,19 @@ import JSON from '../../../assets/FileTypes/JSON';
 import CSS from '../../../assets/FileTypes/CSS';
 import DownArrow from '../../../assets/DownArrow';
 
-// eslint-disable-next-line no-unused-vars
-function FileItem({ fileName, isSelected, childrenFiles = [] }) {
-  const [isMinimised, setIsMinimised] = useState(false);
+function FileItem({ fileName, isSelected = false, childrenFiles = [], type }) {
+  const [isMinimised, setIsMinimised] = useState(true);
+
+  const canExpand = () => {
+    if (type === 'directory') {
+      return true;
+    }
+
+    return false;
+  };
 
   const getFileIcon = () => {
-    if (childrenFiles.length > 0) {
+    if (canExpand()) {
       return (
         <span onClick={() => setIsMinimised(!isMinimised)}>
           <DownArrow />
@@ -34,21 +41,34 @@ function FileItem({ fileName, isSelected, childrenFiles = [] }) {
     return null;
   };
 
+  const handleOnFileClick = () => {
+    if (canExpand()) {
+      setIsMinimised(!isMinimised);
+      return;
+    }
+
+    alert(`File ${fileName} opened!`);
+  };
+
   return (
     <div className={`${styles.fileItemContainer}`}>
-      <div className={`${styles.fileNameStyle} ${isSelected ? styles.selected : ''}`}>
+      <div
+        className={`${styles.fileNameStyle} ${isSelected ? styles.selected : ''}`}
+        onClick={handleOnFileClick}
+      >
         {/* <p className={styles.fileTypeStyle}>{getFileType(fileName)}</p> */}
         {getFileIcon()}
         <p>{fileName}</p>
       </div>
 
-      {isMinimised && (
+      {!isMinimised && (
         <div className={styles.nestedContainer}>
           {childrenFiles.map((item) => (
             <FileItem
-              key={item.fileName}
-              fileName={item.fileName}
-              childrenFiles={item.childrenFiles}
+              key={item.relativePath}
+              fileName={item.name}
+              type={item.pathType}
+              childrenFiles={item.children}
             />
           ))}
         </div>
