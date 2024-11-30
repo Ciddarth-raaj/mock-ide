@@ -9,6 +9,7 @@ import DownArrow from '../../../assets/DownArrow';
 import SQL from '../../../assets/FileTypes/SQL';
 import PYTHON from '../../../assets/FileTypes/PYTHON';
 import LOG from '../../../assets/FileTypes/LOG';
+import UNKNOWN from '../../../assets/FileTypes/UNKNOWN';
 
 function FileItem({ fileName, isSelected = false, childrenFiles = [], type }) {
   const [isMinimised, setIsMinimised] = useState(true);
@@ -47,7 +48,7 @@ function FileItem({ fileName, isSelected = false, childrenFiles = [], type }) {
         return <LOG />;
     }
 
-    return null;
+    return <UNKNOWN />;
   };
 
   const handleOnFileClick = () => {
