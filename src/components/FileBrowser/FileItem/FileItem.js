@@ -10,8 +10,13 @@ import SQL from '../../../assets/FileTypes/SQL';
 import PYTHON from '../../../assets/FileTypes/PYTHON';
 import LOG from '../../../assets/FileTypes/LOG';
 import UNKNOWN from '../../../assets/FileTypes/UNKNOWN';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectFile } from '../../../redux/CodeEditor/editorActions';
 
-function FileItem({ fileName, isSelected = false, childrenFiles = [], type }) {
+function FileItem({ fileName, isSelected = false, childrenFiles = [], type, relativePath }) {
+  const selectedFile = useSelector((state) => state.selectedFile);
+  const dispatch = useDispatch();
+
   const [isMinimised, setIsMinimised] = useState(true);
 
   const canExpand = () => {
@@ -57,7 +62,7 @@ function FileItem({ fileName, isSelected = false, childrenFiles = [], type }) {
       return;
     }
 
-    alert(`File ${fileName} opened!`);
+    dispatch(selectFile('', relativePath));
   };
 
   return (
@@ -77,8 +82,11 @@ function FileItem({ fileName, isSelected = false, childrenFiles = [], type }) {
             <FileItem
               key={item.relativePath}
               fileName={item.name}
+              relativePath={item.relativePath}
+              fileContent={item.editorContent}
               type={item.pathType}
               childrenFiles={item.children}
+              isSelected={item.relativePath === selectedFile}
             />
           ))}
         </div>

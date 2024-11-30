@@ -3,10 +3,15 @@ import React from 'react';
 import styles from './styles.module.css';
 
 import Editor from '@monaco-editor/react';
+import { useDispatch, useSelector } from 'react-redux';
+import { modifyEditorContent } from '../../redux/CodeEditor/editorActions';
 
 function CodeEditor() {
+  const editorContent = useSelector((state) => state.editorContent);
+  const dispatch = useDispatch();
+
   function handleEditorChange(value) {
-    console.log('here is the current model value:', value);
+    dispatch(modifyEditorContent(value));
   }
 
   const handleEditorWillMount = (monaco) => {
@@ -33,13 +38,11 @@ function CodeEditor() {
       height="100vh"
       defaultLanguage="javascript"
       defaultValue="// some comment"
+      value={editorContent}
       onChange={handleEditorChange}
       theme="customTheme"
       beforeMount={handleEditorWillMount}
       className={styles.editorStyle}
-      onMount={() => {
-        console.log('MOUNTED!');
-      }}
     />
   );
 }
