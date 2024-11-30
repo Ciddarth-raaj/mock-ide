@@ -37,6 +37,9 @@ function CodeEditor() {
       theme="customTheme"
       beforeMount={handleEditorWillMount}
       className={styles.editorStyle}
+      onMount={() => {
+        console.log('MOUNTED!');
+      }}
     />
   );
 }
