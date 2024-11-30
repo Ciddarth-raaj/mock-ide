@@ -71,7 +71,6 @@ function FileItem({ fileName, isSelected = false, childrenFiles = [], type, rela
         className={`${styles.fileNameStyle} ${isSelected ? styles.selected : ''}`}
         onClick={handleOnFileClick}
       >
-        {/* <p className={styles.fileTypeStyle}>{getFileType(fileName)}</p> */}
         {getFileIcon()}
         <p>{fileName}</p>
       </div>
