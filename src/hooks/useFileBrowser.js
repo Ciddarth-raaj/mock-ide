@@ -8,7 +8,6 @@ function useFileBrowser() {
   const [files, setFiles] = useState([]);
 
   const parseListFiles = () => {
-    console.log('CIDD', buildTree(Response.data.files));
     setFiles(buildTree(Response.data.files));
   };
 

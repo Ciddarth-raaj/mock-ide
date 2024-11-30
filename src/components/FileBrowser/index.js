@@ -10,8 +10,6 @@ function FileBrowser() {
 
   const { files } = useFileBrowser();
 
-  console.log('CIDD', files);
-
   return (
     <div className={styles.mainContainer}>
       <p className={`secondaryHeading ${styles.sectionHeading}`}>FILE BROWSER</p>
