@@ -1,6 +1,7 @@
-.editorStyle > * {
-  font-family:
-    fantasy 'Courier New',
-    Courier,
-    monospace;
+.editorStyle {
+  font-family: Menlo, Monaco, 'Courier New', monospace;
+}
+
+.editorStyle * {
+  font-family: Menlo, Monaco, 'Courier New', monospace;
 }
