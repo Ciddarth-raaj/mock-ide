@@ -38,7 +38,6 @@ function CodeEditor() {
     <Editor
       height="100vh"
       language={editorLanguage}
-      defaultValue="// some comment"
       value={editorContent}
       onChange={handleEditorChange}
       theme="customTheme"

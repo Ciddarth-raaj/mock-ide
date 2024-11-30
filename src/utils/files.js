@@ -38,9 +38,9 @@ export const buildTree = (data) => {
   return root.children;
 };
 
-export const getFileContent = (selectedFile) => {
+export const getFileContent = (selectedFile, selectedBranch) => {
   const selectedWorksheet = OpenWorksheets.activeWorksheets.find(
-    (item) => item.relativePath === selectedFile
+    (item) => item.relativePath === selectedFile && item.branch === selectedBranch
   );
 
   if (selectedWorksheet) {

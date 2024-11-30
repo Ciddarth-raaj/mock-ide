@@ -4,7 +4,8 @@ import { getFileContent, getLanguageFromFilename } from '../../utils/files';
 const initialState = {
   editorContent: '',
   selectedFile: null,
-  editorLanguage: 'javascript'
+  editorLanguage: 'javascript',
+  selectedBranch: 'dev'
 };
 
 export default (state = initialState, action) => {
@@ -12,7 +13,7 @@ export default (state = initialState, action) => {
     case SELECT_FILE:
       return {
         ...state,
-        editorContent: getFileContent(action.payload.selectedFile),
+        editorContent: getFileContent(action.payload.selectedFile, state.selectedBranch),
         editorLanguage: getLanguageFromFilename(action.payload.selectedFile),
         selectedFile: action.payload.selectedFile
       };
