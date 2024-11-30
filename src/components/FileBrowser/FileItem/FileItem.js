@@ -6,6 +6,9 @@ import JS from '../../../assets/FileTypes/JS';
 import JSON from '../../../assets/FileTypes/JSON';
 import CSS from '../../../assets/FileTypes/CSS';
 import DownArrow from '../../../assets/DownArrow';
+import SQL from '../../../assets/FileTypes/SQL';
+import PYTHON from '../../../assets/FileTypes/PYTHON';
+import LOG from '../../../assets/FileTypes/LOG';
 
 function FileItem({ fileName, isSelected = false, childrenFiles = [], type }) {
   const [isMinimised, setIsMinimised] = useState(true);
@@ -36,6 +39,12 @@ function FileItem({ fileName, isSelected = false, childrenFiles = [], type }) {
         return <JSON />;
       case 'css':
         return <CSS />;
+      case 'sql':
+        return <SQL />;
+      case 'py':
+        return <PYTHON />;
+      case 'log':
+        return <LOG />;
     }
 
     return null;
