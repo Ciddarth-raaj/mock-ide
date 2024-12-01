@@ -1,6 +1,7 @@
 import OpenWorksheets from '../api/open-worksheets.json';
+import { File, Worksheet } from '../types/files';
 
-export const getFileType = (fileName) => {
+export const getFileType = (fileName: string): string | undefined => {
   const splitted = fileName.split('.');
 
   if (splitted.length > 0) {
@@ -10,8 +11,8 @@ export const getFileType = (fileName) => {
   return undefined;
 };
 
-export const buildTree = (data) => {
-  const root = {};
+export const buildTree = (data: File[]): File[] => {
+  const root: { children?: File[] } = {};
   data.forEach((item) => {
     const parts = item.relativePath.split('/');
     let current = root;
@@ -29,32 +30,35 @@ export const buildTree = (data) => {
           gitStatus: null,
           gitIgnored: false,
           ...(index === parts.length - 1 ? item : {})
-        };
+        } as File;
         current.children.push(existing);
       }
       current = existing;
     });
   });
-  return root.children;
+
+  return root.children || [];
 };
 
-export const getFileContent = (selectedFile, selectedBranch) => {
-  const selectedWorksheet = OpenWorksheets.activeWorksheets.find(
+export const getFileContent = (selectedBranch: string, selectedFile?: string): string => {
+  if (!selectedFile) {
+    return '';
+  }
+
+  const selectedWorksheet = (
+    OpenWorksheets as { activeWorksheets: Worksheet[] }
+  ).activeWorksheets.find(
     (item) => item.relativePath === selectedFile && item.branch === selectedBranch
   );
 
-  if (selectedWorksheet) {
-    return selectedWorksheet.editorContent;
-  }
-
-  return '';
+  return selectedWorksheet ? selectedWorksheet.editorContent : '';
 };
 
-export const getLanguageFromFilename = (filename) => {
+export const getLanguageFromFilename = (filename: string): string => {
   const extension = getFileType(filename);
 
   // Map of file extensions to Monaco languages
-  const extensionToLanguageMap = {
+  const extensionToLanguageMap: Record<string, string> = {
     js: 'javascript',
     ts: 'typescript',
     jsx: 'javascript',
@@ -82,9 +86,13 @@ export const getLanguageFromFilename = (filename) => {
     txt: 'plaintext'
   };
 
-  return extensionToLanguageMap[extension] || 'plaintext';
+  return extensionToLanguageMap[extension || ''] || 'plaintext';
 };
 
-export const isSelectedFile = (filePath, selectedFile) => {
+export const isSelectedFile = (filePath: string, selectedFile?: string): boolean => {
+  if (!selectedFile) {
+    return false;
+  }
+
   return filePath === selectedFile;
 };

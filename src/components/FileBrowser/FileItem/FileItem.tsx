@@ -9,21 +9,16 @@ import PYTHON from '../../../assets/FileTypes/PYTHON';
 import SQL from '../../../assets/FileTypes/SQL';
 import UNKNOWN from '../../../assets/FileTypes/UNKNOWN';
 import { selectFile } from '../../../redux/CodeEditor/editorActions';
+import { EditorState } from '../../../types/files';
 import { getFileType } from '../../../utils/files';
 import styles from './styles.module.css';
 
-// Define props interface
 interface FileItemProps {
   fileName: string;
   isSelected?: boolean;
   childrenFiles?: Array<any>;
   type: string;
   relativePath: string;
-}
-
-// Redux state interface
-interface RootState {
-  selectedFile: string | null;
 }
 
 const FileItem: React.FC<FileItemProps> = ({
@@ -33,7 +28,7 @@ const FileItem: React.FC<FileItemProps> = ({
   type,
   relativePath
 }) => {
-  const selectedFile = useSelector((state: RootState) => state.selectedFile);
+  const selectedFile = useSelector((state: EditorState) => state.selectedFile);
   const dispatch = useDispatch();
   const [isMinimized, setIsMinimized] = useState(true);
 

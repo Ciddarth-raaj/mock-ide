@@ -5,16 +5,11 @@ import { modifiyBranchModalVisibility } from '../../redux/CodeEditor/editorActio
 import useFileBrowser from '../../hooks/useFileBrowser';
 import FileItem from './FileItem/FileItem';
 import styles from './styles.module.css';
-
-// Define Redux state interface
-interface RootState {
-  selectedFile: string | null;
-  selectedBranch: string;
-}
+import { EditorState } from '../../types/files';
 
 const FileBrowser: React.FC = () => {
-  const selectedFile = useSelector((state: RootState) => state.selectedFile);
-  const selectedBranch = useSelector((state: RootState) => state.selectedBranch);
+  const selectedFile = useSelector((state: EditorState) => state.selectedFile);
+  const selectedBranch = useSelector((state: EditorState) => state.selectedBranch);
 
   const dispatch = useDispatch();
   const { files } = useFileBrowser();

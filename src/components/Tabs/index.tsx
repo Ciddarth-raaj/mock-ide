@@ -1,12 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import TabItem from './TabItem';
-
 import styles from './styles.module.css';
+import { EditorState } from '../../types/files';
 
-function Tabs() {
-  const tabs = useSelector((state) => state.tabs);
-  const selectedFile = useSelector((state) => state.selectedFile);
+const Tabs: React.FC = () => {
+  const tabs = useSelector((state: EditorState) => state.tabs);
+  const selectedFile = useSelector((state: EditorState) => state.selectedFile);
 
   return (
     <div className={`hiddenScrollbar ${styles.tabsContainer}`}>
@@ -15,6 +15,6 @@ function Tabs() {
       ))}
     </div>
   );
-}
+};
 
 export default Tabs;

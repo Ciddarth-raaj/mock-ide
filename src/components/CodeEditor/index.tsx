@@ -1,23 +1,22 @@
 import React from 'react';
-
-import styles from './styles.module.css';
-
-import Editor from '@monaco-editor/react';
 import { useDispatch, useSelector } from 'react-redux';
+import Editor from '@monaco-editor/react';
 import { modifyEditorContent } from '../../redux/CodeEditor/editorActions';
 import Tabs from '../Tabs';
+import styles from './styles.module.css';
+import { EditorState } from '../../types/files';
 
-function CodeEditor() {
-  const editorContent = useSelector((state) => state.editorContent);
-  const editorLanguage = useSelector((state) => state.editorLanguage);
+const CodeEditor: React.FC = () => {
+  const editorContent = useSelector((state: EditorState) => state.editorContent);
+  const editorLanguage = useSelector((state: EditorState) => state.editorLanguage);
 
   const dispatch = useDispatch();
 
-  function handleEditorChange(value) {
-    dispatch(modifyEditorContent(value));
-  }
+  const handleEditorChange = (value: string | undefined) => {
+    dispatch(modifyEditorContent(value || ''));
+  };
 
-  const handleEditorWillMount = (monaco) => {
+  const handleEditorWillMount = (monacoInstance: any) => {
     const customTheme = {
       base: 'vs-dark', // Base theme (e.g., 'vs', 'vs-dark', 'hc-black')
       inherit: true, // Inherit base theme properties
@@ -33,7 +32,7 @@ function CodeEditor() {
       }
     };
 
-    monaco.editor.defineTheme('customTheme', customTheme);
+    monacoInstance.editor.defineTheme('customTheme', customTheme);
   };
 
   return (
@@ -50,6 +49,6 @@ function CodeEditor() {
       />
     </div>
   );
-}
+};
 
 export default CodeEditor;

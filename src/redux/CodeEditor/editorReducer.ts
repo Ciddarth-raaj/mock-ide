@@ -17,7 +17,7 @@ interface Action {
 
 const initialState: EditorState = {
   editorContent: '',
-  selectedFile: null,
+  selectedFile: undefined,
   editorLanguage: 'javascript',
   selectedBranch: 'dev',
   tabs: [],
@@ -29,7 +29,7 @@ export default (state = initialState, action: Action): EditorState => {
     case SELECT_FILE:
       return {
         ...state,
-        editorContent: getFileContent(action.payload.selectedFile, state.selectedBranch),
+        editorContent: getFileContent(state.selectedBranch, action.payload.selectedFile),
         editorLanguage: getLanguageFromFilename(action.payload.selectedFile),
         selectedFile: action.payload.selectedFile,
         tabs: insertUnique(state.tabs, action.payload.selectedFile)
@@ -62,7 +62,7 @@ export default (state = initialState, action: Action): EditorState => {
       return {
         ...state,
         selectedBranch: action.payload.branchName,
-        editorContent: getFileContent(state.selectedFile, action.payload.branchName)
+        editorContent: getFileContent(action.payload.branchName, state.selectedFile)
       };
     default:
       return state;
