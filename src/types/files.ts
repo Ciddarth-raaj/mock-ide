@@ -45,3 +45,10 @@ export interface Worksheet {
   warehouse: string;
   content: string;
 }
+
+export interface BranchesResponse {
+  data: {
+    localBranches: string[];
+    remoteBranches: string[];
+  };
+}
