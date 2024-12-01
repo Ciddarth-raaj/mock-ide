@@ -73,7 +73,8 @@ export default (state = initialState, action: Action): EditorState => {
       return {
         ...state,
         selectedBranch: action.payload.branchName,
-        editorContent: getFileContent(action.payload.branchName, state.selectedFile)
+        editorContent: getFileContent(action.payload.branchName, state.selectedFile),
+        editedContentMap: {}
       };
     default:
       return state;
