@@ -15,7 +15,7 @@ function BranchItem({ branchName, isRemote }) {
     <div className={styles.itemContainer} onClick={handleItemPress}>
       <p>{branchName}</p>
 
-      {isRemote && <p>remote</p>}
+      {isRemote && <p style={{ opacity: 0.4 }}>remote</p>}
     </div>
   );
 }
