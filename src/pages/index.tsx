@@ -15,13 +15,13 @@ function Index() {
       <BranchModal />
       <div className={styles.mainContainer}>
         <ReflexContainer orientation="vertical">
-          <ReflexElement minSize="200" size={300}>
+          <ReflexElement minSize={200} size={300}>
             <FileBrowser />
           </ReflexElement>
 
-          <ReflexSplitter size={0} style={{ borderColor: 'var(--background)' }} />
+          <ReflexSplitter style={{ borderColor: 'var(--background)' }} />
 
-          <ReflexElement minSize="200">
+          <ReflexElement minSize={200}>
             <CodeEditor />
           </ReflexElement>
         </ReflexContainer>

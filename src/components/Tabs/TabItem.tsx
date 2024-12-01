@@ -1,32 +1,28 @@
 import React from 'react';
-
-import styles from './styles.module.css';
 import { useDispatch } from 'react-redux';
 import { removeTab, selectFile } from '../../redux/CodeEditor/editorActions';
+import styles from './styles.module.css';
 
-function TabItem({ filePath, isOpen }) {
+interface TabItemProps {
+  filePath: string;
+  isOpen: boolean;
+}
+
+const TabItem: React.FC<TabItemProps> = ({ filePath, isOpen }) => {
   const dispatch = useDispatch();
 
   const handleTabClick = () => {
     dispatch(selectFile('', filePath));
   };
 
-  const handleCloseClick = (e) => {
+  const handleCloseClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     dispatch(removeTab(filePath));
   };
 
-  // const getFilePath = () => {
-  //   const splitted = filePath.split('/');
-  //   splitted.pop();
-
-  //   return splitted.join('/');
-  // };
-
-  const getFileName = () => {
+  const getFileName = (): string => {
     const splitted = filePath.split('/');
-
-    return splitted.pop();
+    return splitted.pop() || '';
   };
 
   return (
@@ -41,6 +37,6 @@ function TabItem({ filePath, isOpen }) {
       </p>
     </div>
   );
-}
+};
 
 export default TabItem;

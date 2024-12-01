@@ -7,22 +7,29 @@ import {
 } from './actionTypes';
 import { getFileContent, getLanguageFromFilename, isSelectedFile } from '../../utils/files';
 import { insertUnique } from '../../utils/array';
+import { EditorState } from '../../types/files';
 
-const initialState = {
+// Define the action interface
+interface Action {
+  type: string;
+  payload: any;
+}
+
+const initialState: EditorState = {
   editorContent: '',
-  selectedFile: null,
+  selectedFile: undefined,
   editorLanguage: 'javascript',
   selectedBranch: 'dev',
   tabs: [],
   branchModalVisibility: false
 };
 
-export default (state = initialState, action) => {
+export default (state = initialState, action: Action): EditorState => {
   switch (action.type) {
     case SELECT_FILE:
       return {
         ...state,
-        editorContent: getFileContent(action.payload.selectedFile, state.selectedBranch),
+        editorContent: getFileContent(state.selectedBranch, action.payload.selectedFile),
         editorLanguage: getLanguageFromFilename(action.payload.selectedFile),
         selectedFile: action.payload.selectedFile,
         tabs: insertUnique(state.tabs, action.payload.selectedFile)
@@ -55,7 +62,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         selectedBranch: action.payload.branchName,
-        editorContent: getFileContent(state.selectedFile, action.payload.branchName)
+        editorContent: getFileContent(action.payload.branchName, state.selectedFile)
       };
     default:
       return state;
