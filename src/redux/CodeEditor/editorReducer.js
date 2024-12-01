@@ -1,5 +1,5 @@
-import { MODIFY_CONTENT, SELECT_FILE } from './actionTypes';
-import { getFileContent, getLanguageFromFilename } from '../../utils/files';
+import { MODIFY_CONTENT, REMOVE_TAB, SELECT_FILE } from './actionTypes';
+import { getFileContent, getLanguageFromFilename, isSelectedFile } from '../../utils/files';
 import { insertUnique } from '../../utils/array';
 
 const initialState = {
@@ -24,6 +24,20 @@ export default (state = initialState, action) => {
       return {
         ...state,
         editorContent: action.payload.editorContent
+      };
+    case REMOVE_TAB:
+      return {
+        ...state,
+        tabs: state.tabs.filter((item) => item !== action.payload.selectedFile),
+        selectedFile: isSelectedFile(action.payload.selectedFile, state.selectedFile)
+          ? null
+          : action.payload.selectedFile,
+        editorContent: isSelectedFile(action.payload.selectedFile, state.selectedFile)
+          ? null
+          : action.payload.editorContent,
+        editorLanguage: isSelectedFile(action.payload.selectedFile, state.selectedFile)
+          ? null
+          : action.payload.editorLanguage
       };
     default:
       return state;

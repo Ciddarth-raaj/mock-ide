@@ -84,3 +84,7 @@ export const getLanguageFromFilename = (filename) => {
 
   return extensionToLanguageMap[extension] || 'plaintext';
 };
+
+export const isSelectedFile = (filePath, selectedFile) => {
+  return filePath === selectedFile;
+};

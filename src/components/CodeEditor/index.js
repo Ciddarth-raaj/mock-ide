@@ -10,6 +10,7 @@ import Tabs from '../Tabs';
 function CodeEditor() {
   const editorContent = useSelector((state) => state.editorContent);
   const editorLanguage = useSelector((state) => state.editorLanguage);
+  const tabs = useSelector((state) => state.tabs);
   const dispatch = useDispatch();
 
   function handleEditorChange(value) {
@@ -39,7 +40,7 @@ function CodeEditor() {
     <div className={styles.mainContainer}>
       <Tabs />
       <Editor
-        height="100vh"
+        height={`calc(100vh - ${tabs.length > 0 ? '45px' : '0'})`}
         language={editorLanguage}
         value={editorContent}
         onChange={handleEditorChange}
