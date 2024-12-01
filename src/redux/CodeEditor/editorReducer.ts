@@ -54,23 +54,22 @@ export default (state = initialState, action: Action): EditorState => {
               : 'modified'
         } as Worksheet
       };
-    case REMOVE_TAB:
+    case REMOVE_TAB: {
+      const isFileSelected = isSelectedFile(action.payload.selectedFile, state.selectedFile);
+      const selectedFileHOC = (value: any) => (isFileSelected ? undefined : value);
       return {
         ...state,
         tabs: state.tabs.filter((item) => item !== action.payload.selectedFile),
-        selectedFile: isSelectedFile(action.payload.selectedFile, state.selectedFile)
-          ? null
-          : action.payload.selectedFile,
-        editorWorksheet: isSelectedFile(action.payload.selectedFile, state.selectedFile)
-          ? undefined
-          : getWorksheet(state.selectedBranch, state.editedContentMap, action.payload.selectedFile),
-        editorLanguage: isSelectedFile(action.payload.selectedFile, state.selectedFile)
-          ? null
-          : action.payload.editorLanguage,
-        editedContentMap: isSelectedFile(action.payload.selectedFile, state.selectedFile)
+        selectedFile: selectedFileHOC(action.payload.selectedFile),
+        editorWorksheet: selectedFileHOC(
+          getWorksheet(state.selectedBranch, state.editedContentMap, action.payload.selectedFile)
+        ),
+        editorLanguage: selectedFileHOC(action.payload.editorLanguage),
+        editedContentMap: isFileSelected
           ? { ...state.editedContentMap, [action.payload.selectedFile]: undefined }
           : state.editedContentMap
       };
+    }
     case MODIFY_BRANCH_MODAL_VISIBILITY:
       return {
         ...state,

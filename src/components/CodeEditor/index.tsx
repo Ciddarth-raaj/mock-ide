@@ -7,6 +7,7 @@ import styles from './styles.module.css';
 import { EditorState } from '../../types/files';
 import { ThemeContext } from '../../context/ThemeContext';
 import { ThemeContextType } from '../../types/context';
+import EmptyState from './EmptyState';
 
 const darkTheme = {
   base: 'vs-dark',
@@ -41,6 +42,7 @@ const lightTheme = {
 const CodeEditor: React.FC = () => {
   const { isDarkMode } = useContext(ThemeContext) as ThemeContextType;
   const editorWorksheet = useSelector((state: EditorState) => state.editorWorksheet);
+  const selectedFile = useSelector((state: EditorState) => state.selectedFile);
   const editorLanguage = useSelector((state: EditorState) => state.editorLanguage);
 
   const dispatch = useDispatch();
@@ -57,15 +59,20 @@ const CodeEditor: React.FC = () => {
   return (
     <div className={styles.mainContainer}>
       <Tabs />
-      <Editor
-        height={`calc(100vh - 45px)`}
-        language={editorLanguage}
-        value={editorWorksheet?.modifiedContent ?? ''}
-        onChange={handleEditorChange}
-        theme={isDarkMode ? 'darkTheme' : 'lightTheme'}
-        beforeMount={handleEditorWillMount}
-        className={styles.editorStyle}
-      />
+
+      {selectedFile !== undefined && (
+        <Editor
+          height={`calc(100vh - 45px)`}
+          language={editorLanguage}
+          value={editorWorksheet?.modifiedContent ?? ''}
+          onChange={handleEditorChange}
+          theme={isDarkMode ? 'darkTheme' : 'lightTheme'}
+          beforeMount={handleEditorWillMount}
+          className={styles.editorStyle}
+        />
+      )}
+
+      {selectedFile === undefined && <EmptyState />}
     </div>
   );
 };
