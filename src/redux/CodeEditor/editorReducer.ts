@@ -59,7 +59,10 @@ export default (state = initialState, action: Action): EditorState => {
           : action.payload.editorContent,
         editorLanguage: isSelectedFile(action.payload.selectedFile, state.selectedFile)
           ? null
-          : action.payload.editorLanguage
+          : action.payload.editorLanguage,
+        editedContentMap: isSelectedFile(action.payload.selectedFile, state.selectedFile)
+          ? { ...state.editedContentMap, [action.payload.selectedFile]: undefined }
+          : state.editedContentMap
       };
     case MODIFY_BRANCH_MODAL_VISIBILITY:
       return {
