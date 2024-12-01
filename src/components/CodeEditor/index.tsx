@@ -60,7 +60,7 @@ const CodeEditor: React.FC = () => {
       <Editor
         height={`calc(100vh - 45px)`}
         language={editorLanguage}
-        value={editorWorksheet?.editorContent ?? ''}
+        value={editorWorksheet?.modifiedContent ?? ''}
         onChange={handleEditorChange}
         theme={isDarkMode ? 'darkTheme' : 'lightTheme'}
         beforeMount={handleEditorWillMount}

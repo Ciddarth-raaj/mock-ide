@@ -7,7 +7,7 @@ import {
 } from './actionTypes';
 import { getLanguageFromFilename, getWorksheet, isSelectedFile } from '../../utils/files';
 import { insertUnique } from '../../utils/array';
-import { EditorState } from '../../types/files';
+import { EditorState, Worksheet } from '../../types/files';
 
 interface Action {
   type: string;
@@ -44,7 +44,15 @@ export default (state = initialState, action: Action): EditorState => {
         editedContentMap: {
           ...state.editedContentMap,
           [state.selectedFile ?? '']: action.payload.editorContent
-        }
+        },
+        editorWorksheet: {
+          ...state.editorWorksheet,
+          modifiedContent: action.payload.editorContent,
+          gitStatus:
+            action.payload.editorContent === state.editorWorksheet?.editorContent
+              ? null
+              : 'modified'
+        } as Worksheet
       };
     case REMOVE_TAB:
       return {

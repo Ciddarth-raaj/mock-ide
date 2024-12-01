@@ -12,6 +12,7 @@ import { selectFile } from '../../../redux/CodeEditor/editorActions';
 import { EditorState } from '../../../types/files';
 import { getFileType } from '../../../utils/files';
 import styles from './styles.module.css';
+import { getGitStatusStyle } from '../../../utils/git';
 
 interface FileItemProps {
   fileName: string;
@@ -19,6 +20,8 @@ interface FileItemProps {
   childrenFiles?: Array<any>;
   type: string;
   relativePath: string;
+  gitStatus: string;
+  gitIgnored: boolean;
 }
 
 const FileItem: React.FC<FileItemProps> = ({
@@ -26,7 +29,9 @@ const FileItem: React.FC<FileItemProps> = ({
   isSelected = false,
   childrenFiles = [],
   type,
-  relativePath
+  relativePath,
+  gitStatus,
+  gitIgnored
 }) => {
   const selectedFile = useSelector((state: EditorState) => state.selectedFile);
   const dispatch = useDispatch();
@@ -78,7 +83,7 @@ const FileItem: React.FC<FileItemProps> = ({
         onClick={handleOnFileClick}
       >
         {getFileIcon()}
-        <p>{fileName}</p>
+        <p style={getGitStatusStyle(gitStatus, gitIgnored)}>{fileName}</p>
       </div>
       {!isMinimized && (
         <div className={styles.nestedContainer}>
@@ -90,6 +95,8 @@ const FileItem: React.FC<FileItemProps> = ({
               type={item.pathType}
               childrenFiles={item.children}
               isSelected={item.relativePath === selectedFile}
+              gitStatus={item.gitStatus}
+              gitIgnored={item.gitIgnored}
             />
           ))}
         </div>

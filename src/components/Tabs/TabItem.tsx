@@ -1,7 +1,10 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { removeTab, selectFile } from '../../redux/CodeEditor/editorActions';
 import styles from './styles.module.css';
+import { getWorksheet } from '../../utils/files';
+import { EditorState } from '../../types/files';
+import { getGitStatusStyle } from '../../utils/git';
 
 interface TabItemProps {
   filePath: string;
@@ -10,6 +13,9 @@ interface TabItemProps {
 }
 
 const TabItem: React.FC<TabItemProps> = ({ filePath, isOpen, isUnsaved }) => {
+  const { selectedBranch, editedContentMap } = useSelector((state: EditorState) => state);
+  const worksheet = getWorksheet(selectedBranch, editedContentMap, filePath);
+
   const dispatch = useDispatch();
 
   const handleTabClick = () => {
@@ -31,7 +37,12 @@ const TabItem: React.FC<TabItemProps> = ({ filePath, isOpen, isUnsaved }) => {
       className={`${styles.tabItemContainer} ${isOpen ? styles.selected : ''}`}
       onClick={handleTabClick}
     >
-      <p className={styles.fileNameStyle}>{getFileName()}</p>
+      <p
+        className={styles.fileNameStyle}
+        style={getGitStatusStyle(worksheet?.gitStatus, worksheet?.gitIgnored)}
+      >
+        {getFileName()}
+      </p>
 
       {/* {isUnsaved && <span className={styles.unsavedDot} />} */}
       {isUnsaved && <span className={styles.unsavedStyle}>UNSAVED</span>}

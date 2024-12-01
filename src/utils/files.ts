@@ -59,7 +59,7 @@ export const getFileContent = (
     (item) => item.relativePath === selectedFile && item.branch === selectedBranch
   );
 
-  return selectedWorksheet ? selectedWorksheet.editorContent : '';
+  return selectedWorksheet ? selectedWorksheet.modifiedContent : '';
 };
 
 export const getWorksheet = (
@@ -78,7 +78,7 @@ export const getWorksheet = (
   );
 
   if (selectedWorksheet && editedContentMap[selectedFile]) {
-    selectedWorksheet.editorContent = editedContentMap[selectedFile];
+    selectedWorksheet.modifiedContent = editedContentMap[selectedFile];
   }
 
   return selectedWorksheet ? selectedWorksheet : undefined;

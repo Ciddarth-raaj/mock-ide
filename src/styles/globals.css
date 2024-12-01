@@ -16,6 +16,9 @@
 
   --transparentBg: rgba(255, 255, 255, 0.1);
   --transparentLightBg: rgba(255, 255, 255, 0.05);
+
+  --gitModified: #b2b200;
+  --gitUntracked: #008000;
 }
 
 [data-theme='light'] {
@@ -27,6 +30,9 @@
 
   --transparentBg: rgba(0, 0, 0, 0.1);
   --transparentLightBg: rgba(0, 0, 0, 0.05);
+
+  --gitModified: #9c8a00;
+  --gitUntracked: #008000;
 }
 
 html,
