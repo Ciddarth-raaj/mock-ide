@@ -103,7 +103,7 @@ const FileItem: React.FC<FileItemProps> = ({
               childrenFiles={item.children}
               isSelected={item.relativePath === selectedFile}
               gitStatus={item.gitStatus}
-              gitIgnored={item.gitIgnored}
+              gitIgnored={type === 'directory' && gitIgnored ? gitIgnored : item.gitIgnored}
             />
           ))}
         </div>
