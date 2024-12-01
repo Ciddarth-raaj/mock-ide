@@ -3,14 +3,21 @@ import React from 'react';
 import styles from './styles.module.css';
 import FileItem from './FileItem/FileItem';
 import useFileBrowser from '../../hooks/useFileBrowser';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import BranchIcon from '../../assets/BranchIcon';
+import { modifiyBranchModalVisibility } from '../../redux/CodeEditor/editorActions';
 
 function FileBrowser() {
   const selectedFile = useSelector((state) => state.selectedFile);
   const selectedBranch = useSelector((state) => state.selectedBranch);
 
+  const dispatch = useDispatch();
+
   const { files } = useFileBrowser();
+
+  const handleBranchPress = () => {
+    dispatch(modifiyBranchModalVisibility(true));
+  };
 
   return (
     <div className={styles.mainContainer}>
@@ -30,7 +37,7 @@ function FileBrowser() {
         ))}
       </div>
 
-      <div className={`${styles.branchContainer}`}>
+      <div className={`${styles.branchContainer}`} onClick={handleBranchPress}>
         <BranchIcon />
         <p className={`secondaryHeading`}>{selectedBranch}</p>
       </div>

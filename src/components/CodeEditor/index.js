@@ -40,7 +40,7 @@ function CodeEditor() {
     <div className={styles.mainContainer}>
       <Tabs />
       <Editor
-        height={`calc(100vh - 47px)`}
+        height={`calc(100vh - 45px)`}
         language={editorLanguage}
         value={editorContent}
         onChange={handleEditorChange}

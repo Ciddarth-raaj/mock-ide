@@ -1,0 +1,37 @@
+.outerContainer {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.mainContainer {
+  width: 300px;
+  height: auto;
+  background-color: var(--primary);
+  position: absolute;
+  top: 10px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.itemContainer {
+  padding: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.itemContainer:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.itemContainer:last-child {
+  border-bottom: unset !important;
+}

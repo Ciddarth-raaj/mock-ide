@@ -7,10 +7,12 @@ import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex';
 import FileBrowser from '../components/FileBrowser';
 import { Provider } from 'react-redux';
 import editorStore from '../redux/CodeEditor/editorStore';
+import BranchModal from '../components/Modal/BranchModal/BranchModal';
 
 function Index() {
   return (
     <Provider store={editorStore}>
+      <BranchModal />
       <div className={styles.mainContainer}>
         <ReflexContainer orientation="vertical">
           <ReflexElement minSize="200" size={300}>

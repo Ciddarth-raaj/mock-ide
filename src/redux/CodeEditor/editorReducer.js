@@ -1,4 +1,10 @@
-import { MODIFY_CONTENT, REMOVE_TAB, SELECT_FILE } from './actionTypes';
+import {
+  MODIFY_BRANCH_MODAL_VISIBILITY,
+  MODIFY_CONTENT,
+  REMOVE_TAB,
+  SELECT_BRANCH,
+  SELECT_FILE
+} from './actionTypes';
 import { getFileContent, getLanguageFromFilename, isSelectedFile } from '../../utils/files';
 import { insertUnique } from '../../utils/array';
 
@@ -7,7 +13,8 @@ const initialState = {
   selectedFile: null,
   editorLanguage: 'javascript',
   selectedBranch: 'dev',
-  tabs: []
+  tabs: [],
+  branchModalVisibility: false
 };
 
 export default (state = initialState, action) => {
@@ -38,6 +45,16 @@ export default (state = initialState, action) => {
         editorLanguage: isSelectedFile(action.payload.selectedFile, state.selectedFile)
           ? null
           : action.payload.editorLanguage
+      };
+    case MODIFY_BRANCH_MODAL_VISIBILITY:
+      return {
+        ...state,
+        branchModalVisibility: action.payload.visibility
+      };
+    case SELECT_BRANCH:
+      return {
+        ...state,
+        selectedBranch: action.payload.branchName
       };
     default:
       return state;
