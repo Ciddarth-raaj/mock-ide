@@ -7,8 +7,15 @@ import {
 } from './actionTypes';
 import { getFileContent, getLanguageFromFilename, isSelectedFile } from '../../utils/files';
 import { insertUnique } from '../../utils/array';
+import { EditorState } from '../../types/files';
 
-const initialState = {
+// Define the action interface
+interface Action {
+  type: string;
+  payload: any;
+}
+
+const initialState: EditorState = {
   editorContent: '',
   selectedFile: null,
   editorLanguage: 'javascript',
@@ -17,7 +24,7 @@ const initialState = {
   branchModalVisibility: false
 };
 
-export default (state = initialState, action) => {
+export default (state = initialState, action: Action): EditorState => {
   switch (action.type) {
     case SELECT_FILE:
       return {
