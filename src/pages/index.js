@@ -17,7 +17,7 @@ function Index() {
             <FileBrowser />
           </ReflexElement>
 
-          <ReflexSplitter size={0} style={{ borderColor: 'var(--primary)' }} />
+          <ReflexSplitter size={0} style={{ borderColor: 'var(--background)' }} />
 
           <ReflexElement minSize="200">
             <CodeEditor />

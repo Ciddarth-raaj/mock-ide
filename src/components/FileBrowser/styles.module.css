@@ -4,11 +4,36 @@
   background-color: var(--primary);
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
 }
 
 .sectionHeading {
   padding: 10px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  margin-bottom: 10px;
+}
+
+.filesList {
+  overflow-y: auto;
+  height: 100%;
+  padding-top: 10px;
+}
+
+.branchContainer {
+  width: 100%;
+  padding: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  gap: 4px;
+}
+
+.branchContainer:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.branchContainer svg {
+  width: 18px;
+  height: 18px;
+  opacity: 0.4;
 }

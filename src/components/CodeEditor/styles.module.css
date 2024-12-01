@@ -12,3 +12,11 @@
   gap: 8px;
   background-color: var(--background);
 }
+
+.emptyContainer {
+  height: 100vh;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
