@@ -9,7 +9,6 @@ import { getFileContent, getLanguageFromFilename, isSelectedFile } from '../../u
 import { insertUnique } from '../../utils/array';
 import { EditorState } from '../../types/files';
 
-// Define the action interface
 interface Action {
   type: string;
   payload: any;

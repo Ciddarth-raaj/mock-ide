@@ -6,9 +6,10 @@ import styles from './styles.module.css';
 interface TabItemProps {
   filePath: string;
   isOpen: boolean;
+  isUnsaved: boolean;
 }
 
-const TabItem: React.FC<TabItemProps> = ({ filePath, isOpen }) => {
+const TabItem: React.FC<TabItemProps> = ({ filePath, isOpen, isUnsaved }) => {
   const dispatch = useDispatch();
 
   const handleTabClick = () => {
@@ -31,6 +32,9 @@ const TabItem: React.FC<TabItemProps> = ({ filePath, isOpen }) => {
       onClick={handleTabClick}
     >
       <p>{getFileName()}</p>
+
+      {/* {isUnsaved && <span className={styles.unsavedDot} />} */}
+      {isUnsaved && <span className={styles.unsavedStyle}>UNSAVED</span>}
 
       <p className={styles.closeButton} onClick={handleCloseClick}>
         ×
