@@ -12,7 +12,7 @@ import { selectFile } from '../../../redux/CodeEditor/editorActions';
 import { EditorState } from '../../../types/files';
 import { getFileType } from '../../../utils/files';
 import styles from './styles.module.css';
-import { getGitStatusStyle } from '../../../utils/git';
+import { getGitStatusStyle, getGitStatusText } from '../../../utils/git';
 
 interface FileItemProps {
   fileName: string;
@@ -84,7 +84,14 @@ const FileItem: React.FC<FileItemProps> = ({
       >
         {getFileIcon()}
         <p style={getGitStatusStyle(gitStatus, gitIgnored)}>{fileName}</p>
+
+        {type === 'file' && (
+          <span className={styles.gitStatusText} style={getGitStatusStyle(gitStatus, gitIgnored)}>
+            {getGitStatusText(gitStatus)}
+          </span>
+        )}
       </div>
+
       {!isMinimized && (
         <div className={styles.nestedContainer}>
           {childrenFiles.map((item: any) => (

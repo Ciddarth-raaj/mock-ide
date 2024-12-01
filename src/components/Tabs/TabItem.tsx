@@ -4,7 +4,7 @@ import { removeTab, selectFile } from '../../redux/CodeEditor/editorActions';
 import styles from './styles.module.css';
 import { getWorksheet } from '../../utils/files';
 import { EditorState } from '../../types/files';
-import { getGitStatusStyle } from '../../utils/git';
+import { getGitStatusStyle, getGitStatusText } from '../../utils/git';
 
 interface TabItemProps {
   filePath: string;
@@ -43,6 +43,13 @@ const TabItem: React.FC<TabItemProps> = ({ filePath, isOpen, isUnsaved }) => {
       >
         {getFileName()}
       </p>
+
+      <span
+        className={styles.gitStatusText}
+        style={getGitStatusStyle(worksheet?.gitStatus, worksheet?.gitIgnored)}
+      >
+        {getGitStatusText(worksheet?.gitStatus)}
+      </span>
 
       {/* {isUnsaved && <span className={styles.unsavedDot} />} */}
       {isUnsaved && <span className={styles.unsavedStyle}>UNSAVED</span>}
