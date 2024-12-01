@@ -8,6 +8,7 @@ import FileBrowser from '../components/FileBrowser';
 import { Provider } from 'react-redux';
 import editorStore from '../redux/CodeEditor/editorStore';
 import BranchModal from '../components/Modal/BranchModal/BranchModal';
+import ThemeToggle from '../components/ThemeToggle';
 
 function Index() {
   return (
@@ -25,6 +26,8 @@ function Index() {
             <CodeEditor />
           </ReflexElement>
         </ReflexContainer>
+
+        <ThemeToggle />
       </div>
     </Provider>
   );

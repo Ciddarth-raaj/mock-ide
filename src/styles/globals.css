@@ -18,7 +18,7 @@
   --transparentLightBg: rgba(255, 255, 255, 0.05);
 }
 
-div[data-theme='light'] {
+[data-theme='light'] {
   --primary: #eae6f5;
   --secondary: #d1c4f1;
   --secondaryDark: #b59ede;

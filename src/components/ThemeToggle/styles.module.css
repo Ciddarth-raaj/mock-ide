@@ -1,0 +1,23 @@
+.toggleContainer {
+  position: absolute;
+  right: 40px;
+  bottom: 0px;
+  padding: 10px;
+  background-color: var(--primary);
+  display: flex;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+.toggleContainer > p {
+  padding: 5px 10px;
+  border: 1px solid var(--transparentBg);
+  font-size: 14px;
+  cursor: pointer;
+  color: var(--transparentBg);
+}
+
+.toggleContainer > p.selected {
+  border-color: var(--fontColor);
+  color: var(--fontColor);
+}
