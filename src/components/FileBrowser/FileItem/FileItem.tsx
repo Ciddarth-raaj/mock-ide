@@ -1,36 +1,48 @@
 import React, { useState } from 'react';
-
-import styles from './styles.module.css';
-import { getFileType } from '../../../utils/files';
+import { useDispatch, useSelector } from 'react-redux';
+import DownArrow from '../../../assets/DownArrow';
+import CSS from '../../../assets/FileTypes/CSS';
 import JS from '../../../assets/FileTypes/JS';
 import JSON from '../../../assets/FileTypes/JSON';
-import CSS from '../../../assets/FileTypes/CSS';
-import DownArrow from '../../../assets/DownArrow';
-import SQL from '../../../assets/FileTypes/SQL';
-import PYTHON from '../../../assets/FileTypes/PYTHON';
 import LOG from '../../../assets/FileTypes/LOG';
+import PYTHON from '../../../assets/FileTypes/PYTHON';
+import SQL from '../../../assets/FileTypes/SQL';
 import UNKNOWN from '../../../assets/FileTypes/UNKNOWN';
-import { useDispatch, useSelector } from 'react-redux';
 import { selectFile } from '../../../redux/CodeEditor/editorActions';
+import { getFileType } from '../../../utils/files';
+import styles from './styles.module.css';
 
-function FileItem({ fileName, isSelected = false, childrenFiles = [], type, relativePath }) {
-  const selectedFile = useSelector((state) => state.selectedFile);
+// Define props interface
+interface FileItemProps {
+  fileName: string;
+  isSelected?: boolean;
+  childrenFiles?: Array<any>;
+  type: string;
+  relativePath: string;
+}
+
+// Redux state interface
+interface RootState {
+  selectedFile: string | null;
+}
+
+const FileItem: React.FC<FileItemProps> = ({
+  fileName,
+  isSelected = false,
+  childrenFiles = [],
+  type,
+  relativePath
+}) => {
+  const selectedFile = useSelector((state: RootState) => state.selectedFile);
   const dispatch = useDispatch();
+  const [isMinimized, setIsMinimized] = useState(true);
 
-  const [isMinimised, setIsMinimised] = useState(true);
+  const canExpand = (): boolean => type === 'directory';
 
-  const canExpand = () => {
-    if (type === 'directory') {
-      return true;
-    }
-
-    return false;
-  };
-
-  const getFileIcon = () => {
+  const getFileIcon = (): React.ReactNode => {
     if (canExpand()) {
       return (
-        <span onClick={() => setIsMinimised(!isMinimised)}>
+        <span onClick={() => setIsMinimized(!isMinimized)}>
           <DownArrow />
         </span>
       );
@@ -58,15 +70,14 @@ function FileItem({ fileName, isSelected = false, childrenFiles = [], type, rela
 
   const handleOnFileClick = () => {
     if (canExpand()) {
-      setIsMinimised(!isMinimised);
+      setIsMinimized(!isMinimized);
       return;
     }
-
     dispatch(selectFile('', relativePath));
   };
 
   return (
-    <div className={`${styles.fileItemContainer}`}>
+    <div className={styles.fileItemContainer}>
       <div
         className={`${styles.fileNameStyle} ${isSelected ? styles.selected : ''}`}
         onClick={handleOnFileClick}
@@ -74,15 +85,13 @@ function FileItem({ fileName, isSelected = false, childrenFiles = [], type, rela
         {getFileIcon()}
         <p>{fileName}</p>
       </div>
-
-      {!isMinimised && (
+      {!isMinimized && (
         <div className={styles.nestedContainer}>
-          {childrenFiles.map((item) => (
+          {childrenFiles.map((item: any) => (
             <FileItem
               key={item.relativePath}
               fileName={item.name}
               relativePath={item.relativePath}
-              fileContent={item.editorContent}
               type={item.pathType}
               childrenFiles={item.children}
               isSelected={item.relativePath === selectedFile}
@@ -92,6 +101,6 @@ function FileItem({ fileName, isSelected = false, childrenFiles = [], type, rela
       )}
     </div>
   );
-}
+};
 
 export default FileItem;
