@@ -54,7 +54,8 @@ export default (state = initialState, action) => {
     case SELECT_BRANCH:
       return {
         ...state,
-        selectedBranch: action.payload.branchName
+        selectedBranch: action.payload.branchName,
+        editorContent: getFileContent(state.selectedFile, action.payload.branchName)
       };
     default:
       return state;
