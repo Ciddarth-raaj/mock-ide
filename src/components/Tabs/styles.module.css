@@ -5,6 +5,7 @@
   font-size: 12px;
   gap: 6px;
   align-items: center;
+  cursor: pointer;
 }
 
 .tabItemContainer.selected {
