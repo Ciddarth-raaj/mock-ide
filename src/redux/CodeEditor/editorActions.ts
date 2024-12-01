@@ -6,34 +6,27 @@ import {
   SELECT_FILE
 } from './actionTypes';
 
-type ActionType =
-  | typeof SELECT_FILE
-  | typeof MODIFY_CONTENT
-  | typeof REMOVE_TAB
-  | typeof MODIFY_BRANCH_MODAL_VISIBILITY
-  | typeof SELECT_BRANCH;
-
 export const selectFile = (editorContent: string, selectedFile: string) => ({
-  type: SELECT_FILE as ActionType,
+  type: SELECT_FILE,
   payload: { editorContent, selectedFile }
 });
 
 export const modifyEditorContent = (editorContent: string) => ({
-  type: MODIFY_CONTENT as ActionType,
+  type: MODIFY_CONTENT,
   payload: { editorContent }
 });
 
 export const removeTab = (selectedFile: string) => ({
-  type: REMOVE_TAB as ActionType,
+  type: REMOVE_TAB,
   payload: { selectedFile }
 });
 
 export const modifiyBranchModalVisibility = (visibility: boolean) => ({
-  type: MODIFY_BRANCH_MODAL_VISIBILITY as ActionType,
+  type: MODIFY_BRANCH_MODAL_VISIBILITY,
   payload: { visibility }
 });
 
 export const selectBranch = (branchName: string) => ({
-  type: SELECT_BRANCH as ActionType,
+  type: SELECT_BRANCH,
   payload: { branchName }
 });
