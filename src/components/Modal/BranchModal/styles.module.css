@@ -19,7 +19,8 @@
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-.itemContainer {
+.itemContainer,
+.headingContainer {
   padding: 10px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   font-size: 14px;
@@ -34,4 +35,9 @@
 
 .itemContainer:last-child {
   border-bottom: unset !important;
+}
+
+.headingContainer {
+  justify-content: center;
+  cursor: unset;
 }

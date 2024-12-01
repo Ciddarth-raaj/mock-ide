@@ -23,8 +23,7 @@ body {
 
 .secondaryHeading {
   font-size: 14px;
-  color: white;
-  opacity: 0.7;
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .hiddenScrollbar {

@@ -22,6 +22,7 @@ function BranchModal() {
   return createPortal(
     <div className={styles.outerContainer} onClick={handleBranchPress}>
       <div className={styles.mainContainer}>
+        <p className={`secondaryHeading ${styles.headingContainer}`}>Select Branch</p>
         <div className={styles.branchItemContainer}>
           <BranchItem branchName="dev" isRemote={false} />
           <BranchItem branchName="master" isRemote={false} />
