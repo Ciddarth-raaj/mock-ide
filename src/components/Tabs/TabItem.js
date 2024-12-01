@@ -16,12 +16,25 @@ function TabItem({ filePath, isOpen }) {
     dispatch(removeTab(filePath));
   };
 
+  // const getFilePath = () => {
+  //   const splitted = filePath.split('/');
+  //   splitted.pop();
+
+  //   return splitted.join('/');
+  // };
+
+  const getFileName = () => {
+    const splitted = filePath.split('/');
+
+    return splitted.pop();
+  };
+
   return (
     <div
       className={`${styles.tabItemContainer} ${isOpen ? styles.selected : ''}`}
       onClick={handleTabClick}
     >
-      <p>{filePath}</p>
+      <p>{getFileName()}</p>
 
       <p className={styles.closeButton} onClick={handleCloseClick}>
         ×

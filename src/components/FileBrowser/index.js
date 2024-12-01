@@ -25,25 +25,6 @@ function FileBrowser() {
           isSelected={item.relativePath === selectedFile}
         />
       ))}
-
-      {/* <FileItem fileName="FileBrowser.js" />
-      <FileItem
-        fileName="styles"
-        childrenFiles={[
-          { fileName: 'filename.js', childrenFiles: [] },
-          {
-            fileName: 'filename1.js',
-            childrenFiles: [
-              { fileName: 'filename1.js', childrenFiles: [] },
-              { fileName: 'filename1.js', childrenFiles: [] }
-            ]
-          }
-        ]}
-      />
-      <FileItem fileName="styles.module.css" />
-      <FileItem fileName="test.js" isSelected={true} />
-      <FileItem fileName="config.json" />
-      <FileItem fileName="index.js" /> */}
     </div>
   );
 }

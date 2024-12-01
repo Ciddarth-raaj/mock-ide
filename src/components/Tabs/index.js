@@ -9,7 +9,7 @@ function Tabs() {
   const selectedFile = useSelector((state) => state.selectedFile);
 
   return (
-    <div className={styles.tabsContainer}>
+    <div className={`hiddenScrollbar ${styles.tabsContainer}`}>
       {tabs.map((item) => (
         <TabItem key={item} filePath={item} isOpen={selectedFile === item} />
       ))}
