@@ -12,12 +12,7 @@ import EmptyState from './EmptyState';
 const darkTheme = {
   base: 'vs-dark',
   inherit: true,
-  rules: [
-    { token: 'comment', foreground: '6A9955', fontStyle: 'italic' },
-    { token: 'keyword', foreground: '569CD6' },
-    { token: 'string', foreground: 'CE9178' },
-    { token: 'number', foreground: 'B5CEA8' }
-  ],
+  rules: [{ token: 'comment', foreground: '6A9955', fontStyle: 'italic' }],
   colors: {
     'editor.background': '#0b0718', // Background color
     'editor.foreground': '#D4D4D4' // Default text color
@@ -27,12 +22,7 @@ const darkTheme = {
 const lightTheme = {
   base: 'vs',
   inherit: true,
-  rules: [
-    { token: 'comment', foreground: '6A9955', fontStyle: 'italic' },
-    { token: 'keyword', foreground: '569CD6' },
-    { token: 'string', foreground: 'CE9178' },
-    { token: 'number', foreground: 'B5CEA8' }
-  ],
+  rules: [{ token: 'comment', foreground: '6A9955', fontStyle: 'italic' }],
   colors: {
     'editor.background': '#f9f9fc', // Background color
     'editor.foreground': '#D4D4D4' // Default text color
