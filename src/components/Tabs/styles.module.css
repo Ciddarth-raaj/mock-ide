@@ -1,0 +1,47 @@
+.tabItemContainer {
+  display: flex;
+  padding: 10px;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 12px;
+  gap: 6px;
+  align-items: center;
+}
+
+.tabItemContainer.selected {
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.tabsContainer {
+  display: flex;
+  overflow-x: auto;
+  color: rgba(255, 255, 255, 0.6);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.closeButton {
+  width: 16px;
+  height: 16px;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  transition: background-color 0.5s;
+  cursor: pointer;
+  font-size: 16px;
+  visibility: hidden;
+}
+
+.closeButton:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.tabItemContainer:hover .closeButton {
+  visibility: visible;
+}
+
+.tabItemContainer.selected .closeButton {
+  visibility: visible;
+}

@@ -5,6 +5,7 @@ import styles from './styles.module.css';
 import Editor from '@monaco-editor/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { modifyEditorContent } from '../../redux/CodeEditor/editorActions';
+import Tabs from '../Tabs';
 
 function CodeEditor() {
   const editorContent = useSelector((state) => state.editorContent);
@@ -35,15 +36,18 @@ function CodeEditor() {
   };
 
   return (
-    <Editor
-      height="100vh"
-      language={editorLanguage}
-      value={editorContent}
-      onChange={handleEditorChange}
-      theme="customTheme"
-      beforeMount={handleEditorWillMount}
-      className={styles.editorStyle}
-    />
+    <div className={styles.mainContainer}>
+      <Tabs />
+      <Editor
+        height="100vh"
+        language={editorLanguage}
+        value={editorContent}
+        onChange={handleEditorChange}
+        theme="customTheme"
+        beforeMount={handleEditorWillMount}
+        className={styles.editorStyle}
+      />
+    </div>
   );
 }
 
