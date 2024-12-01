@@ -1,15 +1,19 @@
 {
+  "parser": "@typescript-eslint/parser",
   "extends": [
     "eslint:recommended",
     "plugin:import/errors",
     "plugin:react/recommended",
     "plugin:prettier/recommended"
+    // "plugin:@typescript-eslint/eslint-recommended",
+    // "plugin:@typescript-eslint/recommended"
   ],
   "plugins": ["react", "import", "prettier"],
   "rules": {
     "react/prop-types": 0,
     // "indent": ["error", 2],
-    "linebreak-style": 1
+    "linebreak-style": 1,
+    "@typescript-eslint/no-explicit-any": "off"
   },
   "parserOptions": {
     "ecmaVersion": 2021,
@@ -26,6 +30,11 @@
   "settings": {
     "react": {
       "version": "detect"
+    },
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
     }
   }
 }
