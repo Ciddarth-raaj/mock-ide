@@ -9,6 +9,7 @@ import { EditorState } from '../../types/files';
 const CodeEditor: React.FC = () => {
   const editorContent = useSelector((state: EditorState) => state.editorContent);
   const editorLanguage = useSelector((state: EditorState) => state.editorLanguage);
+  // const editedContentMap = useSelector((state: EditorState) => state.editedContentMap);
 
   const dispatch = useDispatch();
 

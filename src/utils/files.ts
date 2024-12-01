@@ -40,9 +40,17 @@ export const buildTree = (data: File[]): File[] => {
   return root.children || [];
 };
 
-export const getFileContent = (selectedBranch: string, selectedFile?: string): string => {
+export const getFileContent = (
+  selectedBranch: string,
+  editedContentMap: any,
+  selectedFile?: string
+): string => {
   if (!selectedFile) {
     return '';
+  }
+
+  if (editedContentMap[selectedFile]) {
+    return editedContentMap[selectedFile];
   }
 
   const selectedWorksheet = (

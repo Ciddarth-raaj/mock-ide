@@ -5,6 +5,7 @@ export interface EditorState {
   selectedBranch: string;
   tabs: string[];
   branchModalVisibility: boolean;
+  editedContentMap: any;
 }
 
 export interface File {

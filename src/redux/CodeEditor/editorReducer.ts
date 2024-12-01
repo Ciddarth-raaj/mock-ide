@@ -21,7 +21,8 @@ const initialState: EditorState = {
   editorLanguage: 'javascript',
   selectedBranch: 'dev',
   tabs: [],
-  branchModalVisibility: false
+  branchModalVisibility: false,
+  editedContentMap: {}
 };
 
 export default (state = initialState, action: Action): EditorState => {
@@ -29,7 +30,11 @@ export default (state = initialState, action: Action): EditorState => {
     case SELECT_FILE:
       return {
         ...state,
-        editorContent: getFileContent(state.selectedBranch, action.payload.selectedFile),
+        editorContent: getFileContent(
+          state.selectedBranch,
+          state.editedContentMap,
+          action.payload.selectedFile
+        ),
         editorLanguage: getLanguageFromFilename(action.payload.selectedFile),
         selectedFile: action.payload.selectedFile,
         tabs: insertUnique(state.tabs, action.payload.selectedFile)
@@ -37,7 +42,11 @@ export default (state = initialState, action: Action): EditorState => {
     case MODIFY_CONTENT:
       return {
         ...state,
-        editorContent: action.payload.editorContent
+        editorContent: action.payload.editorContent,
+        editedContentMap: {
+          ...state.editedContentMap,
+          [state.selectedFile ?? '']: action.payload.editorContent
+        }
       };
     case REMOVE_TAB:
       return {
