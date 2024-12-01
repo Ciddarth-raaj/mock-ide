@@ -31,7 +31,7 @@ const TabItem: React.FC<TabItemProps> = ({ filePath, isOpen, isUnsaved }) => {
       className={`${styles.tabItemContainer} ${isOpen ? styles.selected : ''}`}
       onClick={handleTabClick}
     >
-      <p>{getFileName()}</p>
+      <p className={styles.fileNameStyle}>{getFileName()}</p>
 
       {/* {isUnsaved && <span className={styles.unsavedDot} />} */}
       {isUnsaved && <span className={styles.unsavedStyle}>UNSAVED</span>}

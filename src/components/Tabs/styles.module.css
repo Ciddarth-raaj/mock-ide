@@ -1,7 +1,7 @@
 .tabItemContainer {
   display: flex;
   padding: 10px;
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: 1px solid var(--transparentBg);
   font-size: 12px;
   gap: 6px;
   align-items: center;
@@ -9,17 +9,25 @@
   position: relative;
 }
 
+.tabItemContainer .fileNameStyle {
+  color: var(--fontColor);
+  opacity: 0.4;
+}
+
 .tabItemContainer.selected {
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
-  color: white;
-  background-color: rgba(255, 255, 255, 0.1);
+  border-right: 1px solid var(--transparentBg);
+  color: var(--fontColor);
+  background-color: var(--transparentBg);
+}
+
+.tabItemContainer.selected .fileNameStyle {
+  opacity: 1;
 }
 
 .tabsContainer {
   display: flex;
   overflow-x: auto;
-  color: rgba(255, 255, 255, 0.6);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--transparentBg);
   height: 37px;
 }
 
@@ -35,10 +43,11 @@
   cursor: pointer;
   font-size: 16px;
   visibility: hidden;
+  color: var(--fontColor);
 }
 
 .closeButton:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--transparentBg);
 }
 
 .tabItemContainer:hover .closeButton {
@@ -49,14 +58,11 @@
   visibility: visible;
 }
 
-.unsavedDot {
-  width: 8px;
-  height: 8px;
-  background-color: rgba(255, 255, 255, 0.6);
-  border-radius: 50%;
-}
-
 .unsavedStyle {
   font-size: 8px;
   color: rgba(255, 255, 255, 0.6);
+}
+
+div[data-theme='light'] .unsavedStyle {
+  color: rgba(0, 0, 0, 0.6);
 }

@@ -36,7 +36,7 @@ const BranchModal: React.FC = () => {
         </div>
       </div>
     </div>,
-    document.body
+    document.getElementById('theme-container') as HTMLElement
   );
 };
 

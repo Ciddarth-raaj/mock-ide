@@ -7,23 +7,39 @@
   font-family: 'Roboto';
 }
 
-html,
-body {
-  height: 100%;
-  color: white;
-  font-size: 14px;
-}
-
 :root {
   --primary: #2b253e;
   --secondary: #53389e;
   --secondaryDark: #311a70;
   --background: #0b0718;
+  --fontColor: white;
+
+  --transparentBg: rgba(255, 255, 255, 0.1);
+  --transparentLightBg: rgba(255, 255, 255, 0.05);
+}
+
+div[data-theme='light'] {
+  --primary: #eae6f5;
+  --secondary: #d1c4f1;
+  --secondaryDark: #b59ede;
+  --background: #f9f9fc;
+  --fontColor: black;
+
+  --transparentBg: rgba(0, 0, 0, 0.1);
+  --transparentLightBg: rgba(0, 0, 0, 0.05);
+}
+
+html,
+body {
+  height: 100%;
+  color: var(--fontColor);
+  font-size: 14px;
 }
 
 .secondaryHeading {
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--fontColor);
+  opacity: 0.4;
 }
 
 .hiddenScrollbar {
