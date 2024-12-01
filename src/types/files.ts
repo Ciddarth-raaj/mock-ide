@@ -1,11 +1,11 @@
 export interface EditorState {
-  editorContent: string;
   selectedFile: string | undefined;
   editorLanguage: string;
   selectedBranch: string;
   tabs: string[];
   branchModalVisibility: boolean;
   editedContentMap: any;
+  editorWorksheet?: Worksheet;
 }
 
 export interface File {

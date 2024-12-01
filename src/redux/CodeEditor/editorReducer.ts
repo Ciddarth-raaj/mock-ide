@@ -5,7 +5,7 @@ import {
   SELECT_BRANCH,
   SELECT_FILE
 } from './actionTypes';
-import { getFileContent, getLanguageFromFilename, isSelectedFile } from '../../utils/files';
+import { getLanguageFromFilename, getWorksheet, isSelectedFile } from '../../utils/files';
 import { insertUnique } from '../../utils/array';
 import { EditorState } from '../../types/files';
 
@@ -15,7 +15,7 @@ interface Action {
 }
 
 const initialState: EditorState = {
-  editorContent: '',
+  editorWorksheet: undefined,
   selectedFile: undefined,
   editorLanguage: 'javascript',
   selectedBranch: 'dev',
@@ -29,7 +29,7 @@ export default (state = initialState, action: Action): EditorState => {
     case SELECT_FILE:
       return {
         ...state,
-        editorContent: getFileContent(
+        editorWorksheet: getWorksheet(
           state.selectedBranch,
           state.editedContentMap,
           action.payload.selectedFile
@@ -41,7 +41,6 @@ export default (state = initialState, action: Action): EditorState => {
     case MODIFY_CONTENT:
       return {
         ...state,
-        editorContent: action.payload.editorContent,
         editedContentMap: {
           ...state.editedContentMap,
           [state.selectedFile ?? '']: action.payload.editorContent
@@ -54,9 +53,9 @@ export default (state = initialState, action: Action): EditorState => {
         selectedFile: isSelectedFile(action.payload.selectedFile, state.selectedFile)
           ? null
           : action.payload.selectedFile,
-        editorContent: isSelectedFile(action.payload.selectedFile, state.selectedFile)
-          ? null
-          : action.payload.editorContent,
+        editorWorksheet: isSelectedFile(action.payload.selectedFile, state.selectedFile)
+          ? undefined
+          : getWorksheet(state.selectedBranch, state.editedContentMap, action.payload.selectedFile),
         editorLanguage: isSelectedFile(action.payload.selectedFile, state.selectedFile)
           ? null
           : action.payload.editorLanguage,
@@ -73,7 +72,11 @@ export default (state = initialState, action: Action): EditorState => {
       return {
         ...state,
         selectedBranch: action.payload.branchName,
-        editorContent: getFileContent(action.payload.branchName, state.selectedFile),
+        editorWorksheet: getWorksheet(
+          state.selectedBranch,
+          state.editedContentMap,
+          action.payload.selectedFile
+        ),
         editedContentMap: {}
       };
     default:

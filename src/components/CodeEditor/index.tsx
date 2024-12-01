@@ -40,9 +40,8 @@ const lightTheme = {
 
 const CodeEditor: React.FC = () => {
   const { isDarkMode } = useContext(ThemeContext) as ThemeContextType;
-  const editorContent = useSelector((state: EditorState) => state.editorContent);
+  const editorWorksheet = useSelector((state: EditorState) => state.editorWorksheet);
   const editorLanguage = useSelector((state: EditorState) => state.editorLanguage);
-  // const editedContentMap = useSelector((state: EditorState) => state.editedContentMap);
 
   const dispatch = useDispatch();
 
@@ -61,7 +60,7 @@ const CodeEditor: React.FC = () => {
       <Editor
         height={`calc(100vh - 45px)`}
         language={editorLanguage}
-        value={editorContent}
+        value={editorWorksheet?.editorContent ?? ''}
         onChange={handleEditorChange}
         theme={isDarkMode ? 'darkTheme' : 'lightTheme'}
         beforeMount={handleEditorWillMount}

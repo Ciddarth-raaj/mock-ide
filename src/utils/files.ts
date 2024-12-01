@@ -62,6 +62,28 @@ export const getFileContent = (
   return selectedWorksheet ? selectedWorksheet.editorContent : '';
 };
 
+export const getWorksheet = (
+  selectedBranch: string,
+  editedContentMap: any,
+  selectedFile?: string
+): Worksheet | undefined => {
+  if (!selectedFile) {
+    return undefined;
+  }
+
+  let selectedWorksheet = (
+    OpenWorksheets as { activeWorksheets: Worksheet[] }
+  ).activeWorksheets.find(
+    (item) => item.relativePath === selectedFile && item.branch === selectedBranch
+  );
+
+  if (selectedWorksheet && editedContentMap[selectedFile]) {
+    selectedWorksheet.editorContent = editedContentMap[selectedFile];
+  }
+
+  return selectedWorksheet ? selectedWorksheet : undefined;
+};
+
 export const getLanguageFromFilename = (filename: string): string => {
   const extension = getFileType(filename);
 
