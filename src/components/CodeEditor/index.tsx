@@ -78,6 +78,7 @@ const CodeEditor: React.FC = () => {
           theme={isDarkMode ? 'darkTheme' : 'lightTheme'}
           beforeMount={handleEditorWillMount}
           className={styles.editorStyle}
+          path={selectedFile}
         />
       )}
 
