@@ -27,12 +27,18 @@ const AlertDialog: React.FC<AlertDialogProps> = ({
         <p className={styles.title}>{title}</p>
         <p className={styles.description}>{description}</p>
         <div className={styles.actions}>
-          <button className={styles.negativeButton} onClick={onNegativeAction}>
-            {negativeButtonText}
+          <button className={`${styles.negativeButton} ${styles.cancelButton}`} onClick={onClose}>
+            Cancel
           </button>
-          <button className={styles.positiveButton} onClick={onPositiveAction}>
-            {positiveButtonText}
-          </button>
+
+          <div className={styles.innerActions}>
+            <button className={styles.negativeButton} onClick={onNegativeAction}>
+              {negativeButtonText}
+            </button>
+            <button className={styles.positiveButton} onClick={onPositiveAction}>
+              {positiveButtonText}
+            </button>
+          </div>
         </div>
       </div>
     </div>,

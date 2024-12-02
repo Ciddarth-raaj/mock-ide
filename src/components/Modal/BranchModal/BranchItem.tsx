@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  modifiyBranchModalVisibility,
+  // modifiyBranchModalVisibility,
   selectBranch
 } from '../../../redux/CodeEditor/editorActions';
 import styles from './styles.module.css';
 import { EditorState } from '../../../types/files';
 import AlertDialog from '../../AlertDialogue';
+import useStoredWorksheetsResponse from '../../../hooks/useStoredWorksheetsResponse';
 
 interface BranchItemProps {
   branchName: string;
@@ -15,6 +16,8 @@ interface BranchItemProps {
 
 const BranchItem: React.FC<BranchItemProps> = ({ branchName, isRemote }) => {
   const dispatch = useDispatch();
+
+  const { saveAllUnsavedFiles } = useStoredWorksheetsResponse(false);
 
   const [showAlert, setShowAlert] = useState(false);
 
@@ -35,19 +38,19 @@ const BranchItem: React.FC<BranchItemProps> = ({ branchName, isRemote }) => {
     e.stopPropagation();
 
     if (allFilesAreSaved()) {
-      handleBranchChange();
+      handleNoSave();
     } else {
       setShowAlert(true);
     }
   };
 
-  const handleBranchChange = () => {
+  const handleSaveAndChange = () => {
+    saveAllUnsavedFiles();
     dispatch(selectBranch(branchName));
   };
 
-  const handleNoChange = () => {
-    setShowAlert(false);
-    dispatch(modifiyBranchModalVisibility(false));
+  const handleNoSave = () => {
+    dispatch(selectBranch(branchName));
   };
 
   return (
@@ -57,9 +60,9 @@ const BranchItem: React.FC<BranchItemProps> = ({ branchName, isRemote }) => {
           title="Are you sure?"
           description="All your unsaved changes will be lost"
           positiveButtonText="Save & Change"
-          onPositiveAction={handleBranchChange}
-          negativeButtonText="Cancel"
-          onNegativeAction={handleNoChange}
+          onPositiveAction={handleSaveAndChange}
+          negativeButtonText="Change"
+          onNegativeAction={handleNoSave}
           onClose={() => setShowAlert(false)}
         />
       )}

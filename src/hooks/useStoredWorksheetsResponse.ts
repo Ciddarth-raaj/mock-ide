@@ -14,7 +14,7 @@ function useStoredWorksheetsResponse(shouldInitialise?: boolean) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (shouldInitialise === undefined || shouldInitialise === false) {
+    if (shouldInitialise === undefined || shouldInitialise !== false) {
       const storedWorksheet = localStorage.getItem('ListWorksheetResponse');
 
       if (storedWorksheet) {
@@ -85,7 +85,23 @@ function useStoredWorksheetsResponse(shouldInitialise?: boolean) {
     }
   };
 
-  return { worksheets: storedWorksheets, modifyWorksheetByFilePath, saveCurrentWorksheet };
+  const saveAllUnsavedFiles = () => {
+    const modifiedWorksheet = storedWorksheets.map((item) =>
+      item.modifiedContent !== item.editorContent && item.branch === selectedBranch
+        ? { ...item, editorContent: item.modifiedContent, gitStatus: 'modified' }
+        : item
+    );
+
+    dispatch(setStoredWorksheet(modifiedWorksheet));
+    localStorage.setItem('ListWorksheetResponse', JSON.stringify(modifiedWorksheet));
+  };
+
+  return {
+    worksheets: storedWorksheets,
+    modifyWorksheetByFilePath,
+    saveCurrentWorksheet,
+    saveAllUnsavedFiles
+  };
 }
 
 export default useStoredWorksheetsResponse;

@@ -37,9 +37,15 @@
 
 .actions {
   display: flex;
-  justify-content: flex-end;
   gap: 10px;
   padding: 10px;
+}
+
+.innerActions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  flex: 1;
 }
 
 .negativeButton {
@@ -51,7 +57,6 @@
   font-size: 1rem;
   color: #fff;
 }
-
 .positiveButton {
   background: var(--secondary);
   color: #fff;
