@@ -6,7 +6,12 @@ import {
   SET_STORED_FILES,
   SET_STORED_WORKSHEETS
 } from './actionTypes';
-import { getLanguageFromFilename, isSelectedFile } from '../../utils/files';
+import {
+  getLanguageFromFilename,
+  isSelectedFile,
+  resetAllWorksheet,
+  resetWorksheetByPath
+} from '../../utils/files';
 import { insertUnique } from '../../utils/array';
 import { EditorState } from '../../types/files';
 
@@ -41,7 +46,12 @@ export default (state = initialState, action: Action): EditorState => {
         ...state,
         tabs: state.tabs.filter((item) => item !== action.payload.selectedFile),
         selectedFile: selectedFileHOC(action.payload.selectedFile),
-        editorLanguage: selectedFileHOC(action.payload.editorLanguage)
+        editorLanguage: selectedFileHOC(action.payload.editorLanguage),
+        storedWorksheets: resetWorksheetByPath(
+          state.storedWorksheets,
+          action.payload.selectedFile,
+          state.selectedBranch
+        )
       };
     }
     case MODIFY_BRANCH_MODAL_VISIBILITY:
@@ -52,7 +62,8 @@ export default (state = initialState, action: Action): EditorState => {
     case SELECT_BRANCH:
       return {
         ...state,
-        selectedBranch: action.payload.branchName
+        selectedBranch: action.payload.branchName,
+        storedWorksheets: resetAllWorksheet(state.storedWorksheets, state.selectedBranch)
       };
     case SET_STORED_FILES:
       return { ...state, storedFiles: action.payload.storedFiles };

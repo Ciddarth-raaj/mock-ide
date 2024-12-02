@@ -117,3 +117,21 @@ export const isSelectedFile = (filePath: string, selectedFile?: string): boolean
 export const getFileByPath = (filesList: File[], filePath: string) => {
   return filesList.find((item) => item.relativePath === filePath);
 };
+
+export const resetWorksheetByPath = (
+  worksheetList: Worksheet[],
+  filePath: string,
+  selectedBranch: string
+) => {
+  return worksheetList.map((item) =>
+    item.relativePath === filePath && item.branch === selectedBranch
+      ? { ...item, modifiedContent: item.editorContent }
+      : item
+  );
+};
+
+export const resetAllWorksheet = (worksheetList: Worksheet[], selectedBranch: string) => {
+  return worksheetList.map((item) =>
+    item.branch === selectedBranch ? { ...item, modifiedContent: item.editorContent } : item
+  );
+};
