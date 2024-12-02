@@ -63,7 +63,8 @@ export default (state = initialState, action: Action): EditorState => {
       return {
         ...state,
         selectedBranch: action.payload.branchName,
-        storedWorksheets: resetAllWorksheet(state.storedWorksheets, state.selectedBranch)
+        storedWorksheets: resetAllWorksheet(state.storedWorksheets, state.selectedBranch),
+        branchModalVisibility: false
       };
     case SET_STORED_FILES:
       return { ...state, storedFiles: action.payload.storedFiles };

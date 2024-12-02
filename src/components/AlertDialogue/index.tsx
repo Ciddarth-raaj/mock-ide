@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './styles.module.css';
+import { createPortal } from 'react-dom';
 
 interface AlertDialogProps {
   title: string;
@@ -20,7 +21,7 @@ const AlertDialog: React.FC<AlertDialogProps> = ({
   onNegativeAction,
   onClose
 }) => {
-  return (
+  return createPortal(
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.dialog} onClick={(e) => e.stopPropagation()}>
         <p className={styles.title}>{title}</p>
@@ -34,7 +35,8 @@ const AlertDialog: React.FC<AlertDialogProps> = ({
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.getElementById('theme-container') as HTMLElement
   );
 };
 
