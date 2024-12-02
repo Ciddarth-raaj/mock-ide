@@ -28,9 +28,13 @@ function useStoredResponse() {
     if (filePath) {
       const finalValue = value || '';
 
-      if (worksheets.find((item) => item.relativePath === filePath)) {
+      if (
+        worksheets.find((item) => item.relativePath === filePath && item.branch === selectedBranch)
+      ) {
         const modifiedWorksheet = worksheets.map((item) =>
-          item.relativePath === filePath ? { ...item, modifiedContent: finalValue } : item
+          item.relativePath === filePath && item.branch === selectedBranch
+            ? { ...item, modifiedContent: finalValue }
+            : item
         );
 
         dispatch(setStoredWorksheet(modifiedWorksheet));
@@ -54,19 +58,6 @@ function useStoredResponse() {
           dispatch(setStoredWorksheet(worksheets));
         }
       }
-
-      //   const modified = storedFiles.map((item) => {
-      //     if (item.relativePath === filePath) {
-      //       return {
-      //         ...item,
-      //         gitStatus: 'modified'
-      //       };
-      //     }
-
-      //     return item;
-      //   });
-
-      //   dispatch(setStoresFiles(modified));
     }
   };
 
