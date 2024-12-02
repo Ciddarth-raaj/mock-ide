@@ -4,7 +4,7 @@ A simplified mock IDE that mimics some features of Visual Studio Code (VS Code)
 
 ## Demo
 
-https://mock-ide.vercel.app
+https://mock-ide.vercel.app 
 
 ## Screenshots
 
