@@ -6,7 +6,7 @@ import { EditorState, Worksheet } from '../types/files';
 import { setStoredWorksheet } from '../redux/CodeEditor/editorActions';
 import { getFileByPath } from '../utils/files';
 
-function useStoredWorksheetsResponse() {
+function useStoredWorksheetsResponse(shouldInitialise?: boolean) {
   const storedFiles = useSelector((state: EditorState) => state.storedFiles);
   const storedWorksheets = useSelector((state: EditorState) => state.storedWorksheets);
   const selectedBranch = useSelector((state: EditorState) => state.selectedBranch);
@@ -14,18 +14,20 @@ function useStoredWorksheetsResponse() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const storedWorksheet = localStorage.getItem('ListWorksheetResponse');
+    if (shouldInitialise === undefined || shouldInitialise === false) {
+      const storedWorksheet = localStorage.getItem('ListWorksheetResponse');
 
-    if (storedWorksheet) {
-      dispatch(setStoredWorksheet(JSON.parse(storedWorksheet)));
-    } else {
-      dispatch(
-        setStoredWorksheet(
-          (WorksheetResponse as { activeWorksheets: Worksheet[] }).activeWorksheets
-        )
-      );
+      if (storedWorksheet) {
+        dispatch(setStoredWorksheet(JSON.parse(storedWorksheet)));
+      } else {
+        dispatch(
+          setStoredWorksheet(
+            (WorksheetResponse as { activeWorksheets: Worksheet[] }).activeWorksheets
+          )
+        );
+      }
     }
-  }, []);
+  }, [shouldInitialise]);
 
   const isWorksheetFound = (filePath: string) => {
     return storedWorksheets.find(
