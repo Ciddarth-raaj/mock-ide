@@ -7,9 +7,9 @@ import {
   SET_STORED_FILES,
   SET_STORED_WORKSHEETS
 } from './actionTypes';
-import { getLanguageFromFilename, getWorksheet, isSelectedFile } from '../../utils/files';
+import { getLanguageFromFilename, isSelectedFile } from '../../utils/files';
 import { insertUnique } from '../../utils/array';
-import { EditorState, Worksheet } from '../../types/files';
+import { EditorState } from '../../types/files';
 
 interface Action {
   type: string;
@@ -17,7 +17,6 @@ interface Action {
 }
 
 const initialState: EditorState = {
-  editorWorksheet: undefined,
   selectedFile: undefined,
   editorLanguage: 'javascript',
   selectedBranch: 'dev',
@@ -32,22 +31,13 @@ export default (state = initialState, action: Action): EditorState => {
     case SELECT_FILE:
       return {
         ...state,
-        editorWorksheet: getWorksheet(
-          state.storedWorksheets,
-          state.selectedBranch,
-          action.payload.selectedFile
-        ),
         editorLanguage: getLanguageFromFilename(action.payload.selectedFile),
         selectedFile: action.payload.selectedFile,
         tabs: insertUnique(state.tabs, action.payload.selectedFile)
       };
     case MODIFY_CONTENT:
       return {
-        ...state,
-        editorWorksheet: {
-          ...state.editorWorksheet,
-          modifiedContent: action.payload.editorContent
-        } as Worksheet
+        ...state
       };
     case REMOVE_TAB: {
       const isFileSelected = isSelectedFile(action.payload.selectedFile, state.selectedFile);
@@ -56,9 +46,6 @@ export default (state = initialState, action: Action): EditorState => {
         ...state,
         tabs: state.tabs.filter((item) => item !== action.payload.selectedFile),
         selectedFile: selectedFileHOC(action.payload.selectedFile),
-        editorWorksheet: selectedFileHOC(
-          getWorksheet(state.storedWorksheets, state.selectedBranch, action.payload.selectedFile)
-        ),
         editorLanguage: selectedFileHOC(action.payload.editorLanguage)
       };
     }
@@ -70,12 +57,7 @@ export default (state = initialState, action: Action): EditorState => {
     case SELECT_BRANCH:
       return {
         ...state,
-        selectedBranch: action.payload.branchName,
-        editorWorksheet: getWorksheet(
-          state.storedWorksheets,
-          state.selectedBranch,
-          action.payload.selectedFile
-        )
+        selectedBranch: action.payload.branchName
       };
     case SET_STORED_FILES:
       return { ...state, storedFiles: action.payload.storedFiles };
