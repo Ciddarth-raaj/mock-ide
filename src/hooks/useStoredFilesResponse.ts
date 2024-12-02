@@ -30,6 +30,12 @@ function useStoredResponse() {
 
   const saveCurrentFile = (filePath?: string) => {
     if (filePath) {
+      // const modifiedFiles = storedFiles.map((item) =>
+      //   item.relativePath === filePath ? { ...item, gitStatus: 'modified' } : item
+      // );
+      // dispatch(setStoresFiles(modifiedFiles));
+      // localStorage.setItem('ListFilesResponse', JSON.stringify(modifiedFiles));
+
       saveCurrentWorksheet(filePath);
     }
   };

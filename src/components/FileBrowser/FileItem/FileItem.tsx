@@ -10,7 +10,7 @@ import SQL from '../../../assets/FileTypes/SQL';
 import UNKNOWN from '../../../assets/FileTypes/UNKNOWN';
 import { selectFile } from '../../../redux/CodeEditor/editorActions';
 import { EditorState } from '../../../types/files';
-import { getFileType } from '../../../utils/files';
+import { getFileType, getWorksheet } from '../../../utils/files';
 import styles from './styles.module.css';
 import { getGitStatusStyle, getGitStatusText } from '../../../utils/git';
 
@@ -20,7 +20,6 @@ interface FileItemProps {
   childrenFiles?: Array<any>;
   type: string;
   relativePath: string;
-  gitStatus: string;
   gitIgnored: boolean;
 }
 
@@ -30,12 +29,15 @@ const FileItem: React.FC<FileItemProps> = ({
   childrenFiles = [],
   type,
   relativePath,
-  gitStatus,
   gitIgnored
 }) => {
   const selectedFile = useSelector((state: EditorState) => state.selectedFile);
   const dispatch = useDispatch();
   const [isMinimized, setIsMinimized] = useState(true);
+
+  const { selectedBranch, storedWorksheets } = useSelector((state: EditorState) => state);
+  const worksheet = getWorksheet(storedWorksheets, selectedBranch, relativePath);
+  const gitStatus = worksheet?.gitStatus;
 
   const canExpand = (): boolean => type === 'directory';
 
@@ -102,7 +104,6 @@ const FileItem: React.FC<FileItemProps> = ({
               type={item.pathType}
               childrenFiles={item.children}
               isSelected={item.relativePath === selectedFile}
-              gitStatus={item.gitStatus}
               gitIgnored={type === 'directory' && gitIgnored ? gitIgnored : item.gitIgnored}
             />
           ))}
