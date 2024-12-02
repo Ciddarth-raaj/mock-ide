@@ -39,6 +39,9 @@ const FileItem: React.FC<FileItemProps> = ({
   const worksheet = getWorksheet(storedWorksheets, selectedBranch, relativePath);
   const gitStatus = worksheet?.gitStatus;
 
+  const getWorksheetHOC = (filePath: string) =>
+    getWorksheet(storedWorksheets, selectedBranch, filePath);
+
   const canExpand = (): boolean => type === 'directory';
 
   const getFileIcon = (): React.ReactNode => {
@@ -85,10 +88,23 @@ const FileItem: React.FC<FileItemProps> = ({
         onClick={handleOnFileClick}
       >
         {getFileIcon()}
-        <p style={getGitStatusStyle(gitStatus, gitIgnored)}>{fileName}</p>
+        <p
+          style={getGitStatusStyle(gitStatus, gitIgnored, {
+            files: childrenFiles,
+            getWorksheet: getWorksheetHOC
+          })}
+        >
+          {fileName}
+        </p>
 
         {type === 'file' && (
-          <span className={styles.gitStatusText} style={getGitStatusStyle(gitStatus, gitIgnored)}>
+          <span
+            className={styles.gitStatusText}
+            style={getGitStatusStyle(gitStatus, gitIgnored, {
+              files: childrenFiles,
+              getWorksheet: getWorksheetHOC
+            })}
+          >
             {getGitStatusText(gitStatus)}
           </span>
         )}
