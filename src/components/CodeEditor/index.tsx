@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Editor from '@monaco-editor/react';
 import Tabs from '../Tabs';
@@ -38,7 +38,7 @@ const CodeEditor: React.FC = () => {
   const { selectedBranch, storedWorksheets } = useSelector((state: EditorState) => state);
   const editorWorksheet = getWorksheet(storedWorksheets, selectedBranch, selectedFile);
 
-  const { modifyContentByFilePath } = useStoredResponse();
+  const { modifyContentByFilePath, saveCurrentFile } = useStoredResponse();
 
   const handleEditorChange = (value: string | undefined) => {
     modifyContentByFilePath(value || '', selectedFile);
@@ -48,6 +48,22 @@ const CodeEditor: React.FC = () => {
     monacoInstance.editor.defineTheme('darkTheme', darkTheme);
     monacoInstance.editor.defineTheme('lightTheme', lightTheme);
   };
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      const code = event.which || event.keyCode;
+
+      let charCode = String.fromCharCode(code).toLowerCase();
+      if ((event.ctrlKey || event.metaKey) && charCode === 's') {
+        event.preventDefault();
+        saveCurrentFile(selectedFile);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedFile, saveCurrentFile]);
 
   return (
     <div className={styles.mainContainer}>
