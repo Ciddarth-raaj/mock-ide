@@ -9,11 +9,10 @@ import PYTHON from '../../../assets/FileTypes/PYTHON';
 import SQL from '../../../assets/FileTypes/SQL';
 import UNKNOWN from '../../../assets/FileTypes/UNKNOWN';
 import { selectFile } from '../../../redux/CodeEditor/editorActions';
-import { EditorState, File } from '../../../types/files';
+import { EditorState } from '../../../types/files';
 import { getFileType, getWorksheet } from '../../../utils/files';
 import styles from './styles.module.css';
 import { getGitStatusStyle, getGitStatusText } from '../../../utils/git';
-import FileActions from './FileActions';
 
 interface FileItemProps {
   fileName: string;
@@ -22,7 +21,6 @@ interface FileItemProps {
   type: string;
   relativePath: string;
   gitIgnored: boolean;
-  isRoot: boolean;
 }
 
 const FileItem: React.FC<FileItemProps> = ({
@@ -31,8 +29,7 @@ const FileItem: React.FC<FileItemProps> = ({
   childrenFiles = [],
   type,
   relativePath,
-  gitIgnored,
-  isRoot
+  gitIgnored
 }) => {
   const selectedFile = useSelector((state: EditorState) => state.selectedFile);
   const dispatch = useDispatch();
@@ -111,13 +108,11 @@ const FileItem: React.FC<FileItemProps> = ({
             {getGitStatusText(gitStatus)}
           </span>
         )}
-
-        {isRoot && <FileActions />}
       </div>
 
       {!isMinimized && (
         <div className={styles.nestedContainer}>
-          {childrenFiles.map((item: File) => (
+          {childrenFiles.map((item: any) => (
             <FileItem
               key={item.relativePath}
               fileName={item.name}
@@ -126,7 +121,6 @@ const FileItem: React.FC<FileItemProps> = ({
               childrenFiles={item.children}
               isSelected={item.relativePath === selectedFile}
               gitIgnored={type === 'directory' && gitIgnored ? gitIgnored : item.gitIgnored}
-              isRoot={false}
             />
           ))}
         </div>

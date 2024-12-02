@@ -38,25 +38,3 @@
   width: 100%;
   text-align: right;
 }
-
-.actionsContainer {
-  width: 100%;
-  display: flex;
-  /* align-items: flex-end; */
-  /* background-color: red; */
-  justify-content: flex-end;
-  gap: 6px;
-}
-
-.iconContainer > svg {
-  width: 18px;
-  height: 18px;
-}
-
-.iconContainer > svg path {
-  stroke: rgba(255, 255, 255, 0.4);
-}
-
-.iconContainer:hover.iconContainer > svg path {
-  stroke: var(--fontColor);
-}

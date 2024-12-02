@@ -31,7 +31,6 @@ const FileBrowser: React.FC = () => {
             childrenFiles={item.children}
             isSelected={item.relativePath === selectedFile}
             gitIgnored={item.gitIgnored}
-            isRoot={item.depth === 0}
           />
         ))}
       </div>
