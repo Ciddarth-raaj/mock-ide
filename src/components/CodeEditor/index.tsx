@@ -8,7 +8,7 @@ import { EditorState } from '../../types/files';
 import { ThemeContext } from '../../context/ThemeContext';
 import { ThemeContextType } from '../../types/context';
 import EmptyState from './EmptyState';
-import useStoredResponse from '../../hooks/useStoredResponse';
+import useStoredResponse from '../../hooks/useStoredFilesResponse';
 
 const darkTheme = {
   base: 'vs-dark',
@@ -32,9 +32,12 @@ const lightTheme = {
 
 const CodeEditor: React.FC = () => {
   const { isDarkMode } = useContext(ThemeContext) as ThemeContextType;
+
   const editorWorksheet = useSelector((state: EditorState) => state.editorWorksheet);
   const selectedFile = useSelector((state: EditorState) => state.selectedFile);
   const editorLanguage = useSelector((state: EditorState) => state.editorLanguage);
+
+  console.log('CIDD', editorWorksheet);
 
   const { modifyContentByFilePath } = useStoredResponse();
 

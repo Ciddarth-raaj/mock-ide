@@ -1,4 +1,3 @@
-import OpenWorksheets from '../api/open-worksheets.json';
 import { File, Worksheet } from '../types/files';
 
 export const getFileType = (fileName: string): string | undefined => {
@@ -41,21 +40,15 @@ export const buildTree = (data: File[]): File[] => {
 };
 
 export const getFileContent = (
+  storedWorksheets: Worksheet[],
   selectedBranch: string,
-  editedContentMap: any,
   selectedFile?: string
 ): string => {
   if (!selectedFile) {
     return '';
   }
 
-  if (editedContentMap[selectedFile]) {
-    return editedContentMap[selectedFile];
-  }
-
-  const selectedWorksheet = (
-    OpenWorksheets as { activeWorksheets: Worksheet[] }
-  ).activeWorksheets.find(
+  const selectedWorksheet = storedWorksheets.find(
     (item) => item.relativePath === selectedFile && item.branch === selectedBranch
   );
 
@@ -63,23 +56,17 @@ export const getFileContent = (
 };
 
 export const getWorksheet = (
+  storedWorksheets: Worksheet[],
   selectedBranch: string,
-  editedContentMap: any,
   selectedFile?: string
 ): Worksheet | undefined => {
   if (!selectedFile) {
     return undefined;
   }
 
-  let selectedWorksheet = (
-    OpenWorksheets as { activeWorksheets: Worksheet[] }
-  ).activeWorksheets.find(
+  let selectedWorksheet = storedWorksheets.find(
     (item) => item.relativePath === selectedFile && item.branch === selectedBranch
   );
-
-  if (selectedWorksheet && editedContentMap[selectedFile]) {
-    selectedWorksheet.modifiedContent = editedContentMap[selectedFile];
-  }
 
   return selectedWorksheet ? selectedWorksheet : undefined;
 };

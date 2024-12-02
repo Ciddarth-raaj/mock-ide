@@ -4,9 +4,9 @@ export interface EditorState {
   selectedBranch: string;
   tabs: string[];
   branchModalVisibility: boolean;
-  editedContentMap: any;
   editorWorksheet?: Worksheet;
   storedFiles: File[];
+  storedWorksheets: Worksheet[];
 }
 
 export interface File {

@@ -4,7 +4,8 @@ import {
   REMOVE_TAB,
   SELECT_BRANCH,
   SELECT_FILE,
-  SET_STORED_FILES
+  SET_STORED_FILES,
+  SET_STORED_WORKSHEETS
 } from './actionTypes';
 import { getLanguageFromFilename, getWorksheet, isSelectedFile } from '../../utils/files';
 import { insertUnique } from '../../utils/array';
@@ -22,8 +23,8 @@ const initialState: EditorState = {
   selectedBranch: 'dev',
   tabs: [],
   branchModalVisibility: false,
-  editedContentMap: {},
-  storedFiles: []
+  storedFiles: [],
+  storedWorksheets: []
 };
 
 export default (state = initialState, action: Action): EditorState => {
@@ -32,8 +33,8 @@ export default (state = initialState, action: Action): EditorState => {
       return {
         ...state,
         editorWorksheet: getWorksheet(
+          state.storedWorksheets,
           state.selectedBranch,
-          state.editedContentMap,
           action.payload.selectedFile
         ),
         editorLanguage: getLanguageFromFilename(action.payload.selectedFile),
@@ -43,17 +44,9 @@ export default (state = initialState, action: Action): EditorState => {
     case MODIFY_CONTENT:
       return {
         ...state,
-        editedContentMap: {
-          ...state.editedContentMap,
-          [state.selectedFile ?? '']: action.payload.editorContent
-        },
         editorWorksheet: {
           ...state.editorWorksheet,
-          modifiedContent: action.payload.editorContent,
-          gitStatus:
-            action.payload.editorContent === state.editorWorksheet?.editorContent
-              ? null
-              : 'modified'
+          modifiedContent: action.payload.editorContent
         } as Worksheet
       };
     case REMOVE_TAB: {
@@ -64,12 +57,9 @@ export default (state = initialState, action: Action): EditorState => {
         tabs: state.tabs.filter((item) => item !== action.payload.selectedFile),
         selectedFile: selectedFileHOC(action.payload.selectedFile),
         editorWorksheet: selectedFileHOC(
-          getWorksheet(state.selectedBranch, state.editedContentMap, action.payload.selectedFile)
+          getWorksheet(state.storedWorksheets, state.selectedBranch, action.payload.selectedFile)
         ),
-        editorLanguage: selectedFileHOC(action.payload.editorLanguage),
-        editedContentMap: isFileSelected
-          ? { ...state.editedContentMap, [action.payload.selectedFile]: undefined }
-          : state.editedContentMap
+        editorLanguage: selectedFileHOC(action.payload.editorLanguage)
       };
     }
     case MODIFY_BRANCH_MODAL_VISIBILITY:
@@ -82,14 +72,15 @@ export default (state = initialState, action: Action): EditorState => {
         ...state,
         selectedBranch: action.payload.branchName,
         editorWorksheet: getWorksheet(
+          state.storedWorksheets,
           state.selectedBranch,
-          state.editedContentMap,
           action.payload.selectedFile
-        ),
-        editedContentMap: {}
+        )
       };
     case SET_STORED_FILES:
       return { ...state, storedFiles: action.payload.storedFiles };
+    case SET_STORED_WORKSHEETS:
+      return { ...state, storedWorksheets: action.payload.storedWorksheets };
     default:
       return state;
   }

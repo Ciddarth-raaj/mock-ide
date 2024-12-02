@@ -9,12 +9,13 @@ import { getGitStatusStyle, getGitStatusText } from '../../utils/git';
 interface TabItemProps {
   filePath: string;
   isOpen: boolean;
-  isUnsaved: boolean;
 }
 
-const TabItem: React.FC<TabItemProps> = ({ filePath, isOpen, isUnsaved }) => {
-  const { selectedBranch, editedContentMap } = useSelector((state: EditorState) => state);
-  const worksheet = getWorksheet(selectedBranch, editedContentMap, filePath);
+const TabItem: React.FC<TabItemProps> = ({ filePath, isOpen }) => {
+  const { selectedBranch, storedWorksheets } = useSelector((state: EditorState) => state);
+  const worksheet = getWorksheet(storedWorksheets, selectedBranch, filePath);
+
+  const isUnsaved = worksheet?.editorContent !== worksheet?.modifiedContent;
 
   const dispatch = useDispatch();
 
