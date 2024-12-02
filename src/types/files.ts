@@ -35,11 +35,11 @@ export interface Worksheet {
   pathType: 'file' | 'directory';
   depth: number;
   index: number;
-  gitStatus: string | null; // Can be 'modified', 'untracked', or null
+  gitStatus: string | null;
   editorContent: string;
   modifiedContent: string;
   gitIgnored: boolean;
-  worksheetType?: string; // Could be further typed if the values are known
+  worksheetType?: string;
   repositoryId?: string;
   branch: string;
   role?: string;

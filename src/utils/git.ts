@@ -18,6 +18,7 @@ const checkIfChildIsModified = ({ files, getWorksheet }: WorksheetData) => {
   return false;
 };
 
+// gets the style of text to display various git status (modified, untracked)
 export const getGitStatusStyle = (
   gitStatus?: string | null,
   gitIgnored?: boolean,

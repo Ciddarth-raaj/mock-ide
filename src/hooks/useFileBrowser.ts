@@ -3,6 +3,7 @@ import { EditorState, File } from '../types/files';
 import { buildTree } from '../utils/files';
 import { useSelector } from 'react-redux';
 
+// Used to handle all files API related tasks
 const useFileBrowser = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [files, setFiles] = useState<File[]>([]);

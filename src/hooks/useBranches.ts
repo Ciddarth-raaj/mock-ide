@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Response from '../api/branches.json';
 import { BranchesResponse } from '../types/files';
 
+// Used to handle all branch API related tasks
 const useBranches = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [localBranches, setLocalBranches] = useState<string[]>([]);

@@ -1,5 +1,6 @@
 import { File, Worksheet } from '../types/files';
 
+// used to get the type of the file by splitting the file name
 export const getFileType = (fileName: string): string | undefined => {
   const splitted = fileName.split('.');
 
@@ -10,6 +11,7 @@ export const getFileType = (fileName: string): string | undefined => {
   return undefined;
 };
 
+// converts the provided flatmap to a nested array for easier use
 export const buildTree = (data: File[]): File[] => {
   const root: { children?: File[] } = {};
   data.forEach((item) => {
@@ -39,6 +41,7 @@ export const buildTree = (data: File[]): File[] => {
   return root.children || [];
 };
 
+// fetches the file content from worksheet list
 export const getFileContent = (
   storedWorksheets: Worksheet[],
   selectedBranch: string,
@@ -55,6 +58,7 @@ export const getFileContent = (
   return selectedWorksheet ? selectedWorksheet.modifiedContent : '';
 };
 
+// fetches the worksheet using relativePath
 export const getWorksheet = (
   storedWorksheets: Worksheet[],
   selectedBranch: string,
@@ -71,6 +75,7 @@ export const getWorksheet = (
   return selectedWorksheet ? selectedWorksheet : undefined;
 };
 
+// function used to get the langugage that is passed to Monaco Editor
 export const getLanguageFromFilename = (filename: string): string => {
   const extension = getFileType(filename);
 
@@ -118,6 +123,7 @@ export const getFileByPath = (filesList: File[], filePath: string) => {
   return filesList.find((item) => item.relativePath === filePath);
 };
 
+// Resets the worksheet of the provided path (undo all the changes)
 export const resetWorksheetByPath = (
   worksheetList: Worksheet[],
   filePath: string,
@@ -130,6 +136,7 @@ export const resetWorksheetByPath = (
   );
 };
 
+// Resets all the worksheet(undo all the changes in all files)
 export const resetAllWorksheet = (worksheetList: Worksheet[], selectedBranch: string) => {
   return worksheetList.map((item) =>
     item.branch === selectedBranch ? { ...item, modifiedContent: item.editorContent } : item

@@ -41,12 +41,14 @@ export default (state = initialState, action: Action): EditorState => {
       };
     case REMOVE_TAB: {
       const isFileSelected = isSelectedFile(action.payload.selectedFile, state.selectedFile);
-      const selectedFileHOC = (value: any) => (isFileSelected ? undefined : value);
+      const selectedFileHOC = (value: any) => (isFileSelected ? undefined : value); // HOC used to return undefined (to reset the editor) if the current file is selected and then closed
       return {
         ...state,
         tabs: state.tabs.filter((item) => item !== action.payload.selectedFile),
         selectedFile: selectedFileHOC(state.selectedFile),
         editorLanguage: selectedFileHOC(state.editorLanguage),
+
+        // The editorContent value is stored in modifiedContent to reset the file
         storedWorksheets: resetWorksheetByPath(
           state.storedWorksheets,
           action.payload.selectedFile,
@@ -63,7 +65,7 @@ export default (state = initialState, action: Action): EditorState => {
       return {
         ...state,
         selectedBranch: action.payload.branchName,
-        storedWorksheets: resetAllWorksheet(state.storedWorksheets, state.selectedBranch),
+        storedWorksheets: resetAllWorksheet(state.storedWorksheets, state.selectedBranch), // All unsaved changes will be reset
         branchModalVisibility: false
       };
     case SET_STORED_FILES:

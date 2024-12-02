@@ -6,6 +6,7 @@ import { EditorState, ListFilesResponse } from '../types/files';
 import { setStoresFiles } from '../redux/CodeEditor/editorActions';
 import useStoredWorksheetsResponse from './useStoredWorksheetsResponse';
 
+// Used to handle all files related tasks, including saving and editing a file
 function useStoredResponse() {
   const storedFiles = useSelector((state: EditorState) => state.storedFiles);
   const dispatch = useDispatch();
@@ -30,12 +31,6 @@ function useStoredResponse() {
 
   const saveCurrentFile = (filePath?: string) => {
     if (filePath) {
-      // const modifiedFiles = storedFiles.map((item) =>
-      //   item.relativePath === filePath ? { ...item, gitStatus: 'modified' } : item
-      // );
-      // dispatch(setStoresFiles(modifiedFiles));
-      // localStorage.setItem('ListFilesResponse', JSON.stringify(modifiedFiles));
-
       saveCurrentWorksheet(filePath);
     }
   };

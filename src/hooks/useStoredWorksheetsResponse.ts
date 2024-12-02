@@ -6,6 +6,7 @@ import { EditorState, Worksheet } from '../types/files';
 import { setStoredWorksheet } from '../redux/CodeEditor/editorActions';
 import { getFileByPath } from '../utils/files';
 
+// Used to handle all worksheet related tasks, including saving and editing a worksheet
 function useStoredWorksheetsResponse(shouldInitialise?: boolean) {
   const storedFiles = useSelector((state: EditorState) => state.storedFiles);
   const storedWorksheets = useSelector((state: EditorState) => state.storedWorksheets);
@@ -35,6 +36,7 @@ function useStoredWorksheetsResponse(shouldInitialise?: boolean) {
     );
   };
 
+  // Function used to modify the content on onChange of the editor (the modified value is updated from the worksheet list)
   const modifyWorksheetByFilePath = (value: string | undefined, filePath?: string) => {
     if (filePath) {
       const finalValue = value || '';
