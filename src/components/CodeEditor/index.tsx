@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { useSelector } from 'react-redux';
 import Editor from '@monaco-editor/react';
-// import { modifyEditorContent } from '../../redux/CodeEditor/editorActions';
 import Tabs from '../Tabs';
 import styles from './styles.module.css';
 import { EditorState } from '../../types/files';

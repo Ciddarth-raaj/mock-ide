@@ -39,12 +39,12 @@ export interface Worksheet {
   editorContent: string;
   modifiedContent: string;
   gitIgnored: boolean;
-  worksheetType: string; // Could be further typed if the values are known
-  repositoryId: string;
+  worksheetType?: string; // Could be further typed if the values are known
+  repositoryId?: string;
   branch: string;
-  role: string;
-  warehouse: string;
-  content: string;
+  role?: string;
+  warehouse?: string;
+  content?: string;
 }
 
 export interface BranchesResponse {

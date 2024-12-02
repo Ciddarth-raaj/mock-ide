@@ -1,7 +1,6 @@
 import { File, Worksheet } from '../../types/files';
 import {
   MODIFY_BRANCH_MODAL_VISIBILITY,
-  MODIFY_CONTENT,
   REMOVE_TAB,
   SELECT_BRANCH,
   SELECT_FILE,
@@ -12,11 +11,6 @@ import {
 export const selectFile = (editorContent: string, selectedFile: string) => ({
   type: SELECT_FILE,
   payload: { editorContent, selectedFile }
-});
-
-export const modifyEditorContent = (editorContent: string) => ({
-  type: MODIFY_CONTENT,
-  payload: { editorContent }
 });
 
 export const removeTab = (selectedFile: string) => ({

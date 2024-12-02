@@ -1,6 +1,5 @@
 import {
   MODIFY_BRANCH_MODAL_VISIBILITY,
-  MODIFY_CONTENT,
   REMOVE_TAB,
   SELECT_BRANCH,
   SELECT_FILE,
@@ -34,10 +33,6 @@ export default (state = initialState, action: Action): EditorState => {
         editorLanguage: getLanguageFromFilename(action.payload.selectedFile),
         selectedFile: action.payload.selectedFile,
         tabs: insertUnique(state.tabs, action.payload.selectedFile)
-      };
-    case MODIFY_CONTENT:
-      return {
-        ...state
       };
     case REMOVE_TAB: {
       const isFileSelected = isSelectedFile(action.payload.selectedFile, state.selectedFile);

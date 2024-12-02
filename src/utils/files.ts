@@ -113,3 +113,7 @@ export const isSelectedFile = (filePath: string, selectedFile?: string): boolean
 
   return filePath === selectedFile;
 };
+
+export const getFileByPath = (filesList: File[], filePath: string) => {
+  return filesList.find((item) => item.relativePath === filePath);
+};
