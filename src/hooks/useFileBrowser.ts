@@ -19,6 +19,14 @@ const useFileBrowser = () => {
     }
   }, [storedFiles]);
 
+  useEffect(() => {
+    let timer = setTimeout(() => setLoading(false), 1000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
   return { files, setFiles, loading, setLoading };
 };
 

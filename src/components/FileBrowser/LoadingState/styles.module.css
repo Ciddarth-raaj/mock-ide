@@ -1,0 +1,18 @@
+.container {
+  padding: 10px;
+  max-width: 400px;
+  padding-inline: 20px;
+}
+
+.nested {
+  margin-left: 50px;
+  margin-bottom: 10px;
+}
+
+.item {
+  margin-bottom: 20px;
+}
+
+.loaderStyle {
+  margin-bottom: 10px;
+}

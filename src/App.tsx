@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 
 import './styles/globals.css';
 import 'react-reflex/styles.css';
+import 'react-loading-skeleton/dist/skeleton.css';
+
 import Index from './pages/index';
 import { ThemeContext } from './context/ThemeContext';
 import { ThemeContextType } from './types/context';

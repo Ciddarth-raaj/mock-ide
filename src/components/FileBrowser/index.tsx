@@ -6,13 +6,14 @@ import useFileBrowser from '../../hooks/useFileBrowser';
 import FileItem from './FileItem/FileItem';
 import styles from './styles.module.css';
 import { EditorState } from '../../types/files';
+import LoadingState from './LoadingState/LoadingState';
 
 const FileBrowser: React.FC = () => {
   const selectedFile = useSelector((state: EditorState) => state.selectedFile);
   const selectedBranch = useSelector((state: EditorState) => state.selectedBranch);
 
   const dispatch = useDispatch();
-  const { files } = useFileBrowser();
+  const { files, loading } = useFileBrowser();
 
   const handleBranchPress = () => {
     dispatch(modifiyBranchModalVisibility(true));
@@ -22,17 +23,20 @@ const FileBrowser: React.FC = () => {
     <div className={styles.mainContainer}>
       <p className={`secondaryHeading ${styles.sectionHeading}`}>FILE BROWSER</p>
       <div className={styles.filesList}>
-        {files.map((item: any) => (
-          <FileItem
-            key={item.relativePath}
-            fileName={item.name}
-            relativePath={item.relativePath}
-            type={item.pathType}
-            childrenFiles={item.children}
-            isSelected={item.relativePath === selectedFile}
-            gitIgnored={item.gitIgnored}
-          />
-        ))}
+        {loading && <LoadingState />}
+
+        {!loading &&
+          files.map((item: any) => (
+            <FileItem
+              key={item.relativePath}
+              fileName={item.name}
+              relativePath={item.relativePath}
+              type={item.pathType}
+              childrenFiles={item.children}
+              isSelected={item.relativePath === selectedFile}
+              gitIgnored={item.gitIgnored}
+            />
+          ))}
       </div>
       <div className={`${styles.branchContainer}`} onClick={handleBranchPress}>
         <BranchIcon />
