@@ -34,7 +34,7 @@ const TabItem: React.FC<TabItemProps> = ({ filePath, isOpen }) => {
     if (isUnsaved) {
       setShowAlert(true);
     } else {
-      handleSave();
+      handleNoSave();
     }
   };
 

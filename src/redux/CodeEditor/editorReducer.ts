@@ -45,8 +45,8 @@ export default (state = initialState, action: Action): EditorState => {
       return {
         ...state,
         tabs: state.tabs.filter((item) => item !== action.payload.selectedFile),
-        selectedFile: selectedFileHOC(action.payload.selectedFile),
-        editorLanguage: selectedFileHOC(action.payload.editorLanguage),
+        selectedFile: selectedFileHOC(state.selectedFile),
+        editorLanguage: selectedFileHOC(state.editorLanguage),
         storedWorksheets: resetWorksheetByPath(
           state.storedWorksheets,
           action.payload.selectedFile,
