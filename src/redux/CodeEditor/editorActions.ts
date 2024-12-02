@@ -1,9 +1,11 @@
+import { File } from '../../types/files';
 import {
   MODIFY_BRANCH_MODAL_VISIBILITY,
   MODIFY_CONTENT,
   REMOVE_TAB,
   SELECT_BRANCH,
-  SELECT_FILE
+  SELECT_FILE,
+  SET_STORED_FILES
 } from './actionTypes';
 
 export const selectFile = (editorContent: string, selectedFile: string) => ({
@@ -29,4 +31,9 @@ export const modifiyBranchModalVisibility = (visibility: boolean) => ({
 export const selectBranch = (branchName: string) => ({
   type: SELECT_BRANCH,
   payload: { branchName }
+});
+
+export const setStoresFiles = (storedFiles: File[]) => ({
+  type: SET_STORED_FILES,
+  payload: { storedFiles }
 });

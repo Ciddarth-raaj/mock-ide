@@ -1,13 +1,14 @@
 import React, { useContext } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Editor from '@monaco-editor/react';
-import { modifyEditorContent } from '../../redux/CodeEditor/editorActions';
+// import { modifyEditorContent } from '../../redux/CodeEditor/editorActions';
 import Tabs from '../Tabs';
 import styles from './styles.module.css';
 import { EditorState } from '../../types/files';
 import { ThemeContext } from '../../context/ThemeContext';
 import { ThemeContextType } from '../../types/context';
 import EmptyState from './EmptyState';
+import useStoredResponse from '../../hooks/useStoredResponse';
 
 const darkTheme = {
   base: 'vs-dark',
@@ -35,10 +36,10 @@ const CodeEditor: React.FC = () => {
   const selectedFile = useSelector((state: EditorState) => state.selectedFile);
   const editorLanguage = useSelector((state: EditorState) => state.editorLanguage);
 
-  const dispatch = useDispatch();
+  const { modifyContentByFilePath } = useStoredResponse();
 
   const handleEditorChange = (value: string | undefined) => {
-    dispatch(modifyEditorContent(value || ''));
+    modifyContentByFilePath(value || '', selectedFile);
   };
 
   const handleEditorWillMount = (monacoInstance: any) => {

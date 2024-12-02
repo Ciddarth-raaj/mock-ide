@@ -3,7 +3,8 @@ import {
   MODIFY_CONTENT,
   REMOVE_TAB,
   SELECT_BRANCH,
-  SELECT_FILE
+  SELECT_FILE,
+  SET_STORED_FILES
 } from './actionTypes';
 import { getLanguageFromFilename, getWorksheet, isSelectedFile } from '../../utils/files';
 import { insertUnique } from '../../utils/array';
@@ -21,7 +22,8 @@ const initialState: EditorState = {
   selectedBranch: 'dev',
   tabs: [],
   branchModalVisibility: false,
-  editedContentMap: {}
+  editedContentMap: {},
+  storedFiles: []
 };
 
 export default (state = initialState, action: Action): EditorState => {
@@ -86,6 +88,8 @@ export default (state = initialState, action: Action): EditorState => {
         ),
         editedContentMap: {}
       };
+    case SET_STORED_FILES:
+      return { ...state, storedFiles: action.payload.storedFiles };
     default:
       return state;
   }

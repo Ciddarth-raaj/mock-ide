@@ -6,6 +6,7 @@ export interface EditorState {
   branchModalVisibility: boolean;
   editedContentMap: any;
   editorWorksheet?: Worksheet;
+  storedFiles: File[];
 }
 
 export interface File {
